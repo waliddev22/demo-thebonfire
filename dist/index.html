@@ -1,434 +1,26 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="scroll-smooth scroll-pt-[72px] max-md:scroll-pt-[64px]">
 
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-  <!-- Applies the saved theme before first paint, so there's no flash of the wrong mode. -->
-  <script>
-    (function () {
-      try {
-        var stored = localStorage.getItem('theme');
-        var prefersDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
-        if (stored === 'dark' || (!stored && prefersDark)) {
-          document.documentElement.classList.add('dark');
-        }
-      } catch (e) { /* localStorage unavailable — default to light */ }
-    })();
-  </script>
 
   <title>The Bonfire Restaurant</title>
 
   <link rel="alternate" hreflang="en" href="https://thebonfire.example.com/" />
   <link rel="alternate" hreflang="fr" href="https://thebonfire.example.com/fr/" />
   <link rel="alternate" hreflang="x-default" href="https://thebonfire.example.com/" />
-
-  <style>
-    :root {
-      --cream: #eef0e4;
-      --panel-a: #f6f3ea;
-      --panel-b: #f4e6d6;
-      --panel-c: #eef0e4;
-      --ink: #241d16;
-      --ink-soft: #6b6153;
-      --ember-1: #f4a620;
-      --ember-2: #e2572a;
-      --ember-3: #a8321c;
-    }
-
-    html {
-      scroll-behavior: smooth;
-      scroll-padding-top: 72px;
-    }
-
-    body {
-      font-family: 'Inter', sans-serif;
-      background: var(--cream);
-      color: var(--ink);
-    }
-
-    .font-display {
-      font-family: 'Fraunces', serif;
-    }
-
-    .ember-gradient {
-      background: linear-gradient(135deg, var(--ember-1), var(--ember-2) 55%, var(--ember-3));
-    }
-
-    .ember-text {
-      background: linear-gradient(135deg, var(--ember-1), var(--ember-2) 60%, var(--ember-3));
-      -webkit-background-clip: text;
-      background-clip: text;
-      color: transparent;
-    }
-
-    /* Compact sticky navigation. */
-    .site-nav {
-      position: sticky;
-      top: 0;
-      z-index: 50;
-      background: color-mix(in srgb, var(--cream) 94%, transparent);
-      backdrop-filter: blur(14px);
-      -webkit-backdrop-filter: blur(14px);
-      transition: padding .35s ease, box-shadow .35s ease, background .35s ease;
-    }
-
-    .site-nav.is-scrolled {
-      box-shadow: 0 10px 28px rgba(36, 29, 22, .08);
-    }
-
-    .site-nav.is-scrolled .nav-top {
-      padding-block: .25rem;
-    }
-
-    .site-nav.is-scrolled #logo {
-      width: 11rem;
-    }
-
-    .nav-top {
-      transition: padding .35s ease;
-    }
-
-    .nav-link {
-      position: relative;
-    }
-
-    .nav-link::after {
-      content: '';
-      position: absolute;
-      left: .5rem;
-      right: .5rem;
-      bottom: -.15rem;
-      height: 2px;
-      transform: scaleX(0);
-      transform-origin: center;
-      background: var(--ember-2);
-      transition: transform .25s ease;
-    }
-
-    .nav-link:hover::after,
-    .nav-link[aria-current='page']::after {
-      transform: scaleX(1);
-    }
-
-    /* Mobile menu sits over the hero instead of pushing it down. */
-    .mobile-menu {
-      max-height: 0;
-      opacity: 0;
-      overflow: hidden;
-      transform: translateY(-8px);
-      pointer-events: none;
-      transition: max-height .35s ease, opacity .25s ease, transform .35s ease;
-    }
-
-    .mobile-menu.is-open {
-      max-height: 32rem;
-      opacity: 1;
-      transform: translateY(0);
-      pointer-events: auto;
-    }
-
-    .hamburger-line {
-      transform-origin: center;
-      transition: transform .3s ease, opacity .2s ease;
-    }
-
-    #menu-toggle.is-open .hamburger-top {
-      transform: translateY(6px) rotate(45deg);
-    }
-
-    #menu-toggle.is-open .hamburger-middle {
-      opacity: 0;
-    }
-
-    #menu-toggle.is-open .hamburger-bottom {
-      transform: translateY(-6px) rotate(-45deg);
-    }
-
-    .card {
-      position: relative;
-      overflow: hidden;
-      transition: transform .5s cubic-bezier(.16, 1, .3, 1), box-shadow .5s ease;
-    }
-
-    .card:hover {
-      transform: translateY(-6px);
-    }
-
-    .card-img {
-      transition: transform .8s cubic-bezier(.16, 1, .3, 1), filter .8s ease;
-    }
-
-    .card:hover .card-img {
-      transform: scale(1.045);
-    }
-
-    .reveal {
-      opacity: 0;
-      transform: translateY(28px);
-      transition: opacity .7s cubic-bezier(.16, 1, .3, 1), transform .7s cubic-bezier(.16, 1, .3, 1);
-    }
-
-    .reveal.is-visible {
-      opacity: 1;
-      transform: translateY(0);
-    }
-
-    .faq-summary {
-      list-style: none;
-      cursor: pointer;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 1rem;
-      padding: 1.15rem 1.25rem;
-      font-family: 'Fraunces', serif;
-      font-weight: 600;
-      font-size: 1.0625rem;
-      color: var(--ink);
-      transition: background .3s ease;
-    }
-
-    .faq-summary::-webkit-details-marker {
-      display: none;
-    }
-
-    .faq-summary:hover {
-      background: rgba(226, 87, 42, .05);
-    }
-
-    .faq-chevron {
-      flex-shrink: 0;
-      color: var(--ember-2);
-      transition: transform .35s cubic-bezier(.16, 1, .3, 1);
-    }
-
-    .faq-item[open] .faq-chevron {
-      transform: rotate(180deg);
-    }
-
-    .faq-answer {
-      padding: 0 1.25rem 1.35rem;
-      font-size: .9375rem;
-      line-height: 1.7;
-      color: var(--ink-soft);
-    }
-
-    #reviews-track::-webkit-scrollbar {
-      display: none;
-    }
-
-    .review-card {
-      flex: 0 0 auto;
-      width: min(320px, calc(100vw - 2rem));
-      user-select: none;
-    }
-
-    @media (min-width:768px) {
-      .review-card {
-        width: 360px;
-      }
-    }
-
-    .reviews-dot {
-      width: 6px;
-      height: 6px;
-      border-radius: 9999px;
-      background: rgba(36, 29, 22, .2);
-      transition: background .3s ease, width .3s ease;
-    }
-
-    .reviews-dot.is-active {
-      background: var(--ember-2);
-      width: 20px;
-    }
-
-    #reviews-track {
-      scrollbar-width: none;
-      touch-action: pan-y;
-      cursor: grab;
-    }
-
-    #reviews-track.is-dragging {
-      cursor: grabbing;
-      user-select: none;
-    }
-
-    /* Compact, lighter newsletter. */
-    .newsletter-panel {
-      background: #eee8dc;
-      border: 1px solid rgba(36, 29, 22, .07);
-    }
-
-    .newsletter-input {
-      background: #faf8f2;
-      color: var(--ink);
-      border: 1px solid rgba(36, 29, 22, .1);
-    }
-
-    @media (max-width: 767px) {
-      html {
-        scroll-padding-top: 64px;
-      }
-
-      .site-nav {
-        position: sticky;
-        top: 0;
-      }
-
-      .mobile-menu {
-        position: absolute;
-        left: 0;
-        right: 0;
-        top: 100%;
-        background: rgba(246, 243, 234, .98);
-        border-top: 1px solid rgba(36, 29, 22, .08);
-        box-shadow: 0 16px 30px rgba(36, 29, 22, .12);
-      }
-
-      .hero-section {
-        margin-top: .5rem !important;
-      }
-    }
-
-    @media (prefers-reduced-motion: reduce) {
-      html {
-        scroll-behavior: auto;
-      }
-
-      .site-nav,
-      .nav-top,
-      .mobile-menu,
-      .hamburger-line,
-      .faq-chevron,
-      .card,
-      .card-img,
-      .reveal {
-        transition: none !important;
-      }
-    }
-
-    /* ===========================================================
-       DARK MODE
-       Most of the page (about cards, FAQ, reviews, newsletter)
-       already reads color from the CSS variables below, so
-       overriding them here re-themes those sections automatically.
-       A handful of nav/header elements use literal Tailwind hex
-       classes instead of the variables, so those get explicit
-       overrides underneath.
-       =========================================================== */
-    html.dark {
-      --cream: #17130f;
-      --panel-a: #211a13;
-      --panel-b: #261e15;
-      --panel-c: #1d1712;
-      --ink: #f2ece0;
-      --ink-soft: #b6a993;
-    }
-
-    body,
-    .card,
-    .newsletter-panel,
-    .newsletter-input,
-    #site-header,
-    #language-menu,
-    #mobile-menu,
-    #mobile-bottom-actions {
-      transition: background-color .3s ease, color .3s ease, border-color .3s ease;
-    }
-
-    /* Header/nav: literal hex classes that bypass the CSS vars above */
-    html.dark .text-\[\#3F2A1D\] {
-      color: var(--ink);
-    }
-
-    html.dark .border-\[\#3F2A1D\] {
-      border-color: var(--ink-soft);
-    }
-
-    /* Hero left panel: hardcoded cream/tan background */
-    html.dark .bg-\[\#f3e7da\] {
-      background-color: var(--panel-b);
-    }
-
-    /* White dropdowns / overlays (mobile menu, language menu, bottom bar) */
-    html.dark .bg-white {
-      background-color: var(--panel-a);
-    }
-
-    html.dark .border-gray-100 {
-      border-color: rgba(255, 255, 255, .08);
-    }
-
-    html.dark .border-gray-200 {
-      border-color: rgba(255, 255, 255, .1);
-    }
-
-    html.dark .hover\:bg-gray-50:hover {
-      background-color: rgba(255, 255, 255, .06);
-    }
-
-    /* Card/FAQ borders and dividers drawn from black-alpha utilities */
-    html.dark .border-black\/5 {
-      border-color: rgba(255, 255, 255, .08);
-    }
-
-    html.dark .border-black\/10 {
-      border-color: rgba(255, 255, 255, .1);
-    }
-
-    html.dark .divide-black\/5>:not([hidden])~:not([hidden]) {
-      border-color: rgba(255, 255, 255, .08);
-    }
-
-    html.dark .divide-black\/10>:not([hidden])~:not([hidden]) {
-      border-color: rgba(255, 255, 255, .1);
-    }
-
-    html.dark .hover\:bg-black\/5:hover {
-      background-color: rgba(255, 255, 255, .05);
-    }
-
-    html.dark .hover\:bg-black\/10:hover {
-      background-color: rgba(255, 255, 255, .08);
-    }
-
-    /* Newsletter panel + input use named classes with hardcoded light colors */
-    html.dark .newsletter-panel {
-      background: var(--panel-b);
-      border-color: rgba(255, 255, 255, .08);
-    }
-
-    html.dark .newsletter-input {
-      background: var(--panel-a);
-      color: var(--ink);
-      border-color: rgba(255, 255, 255, .12);
-    }
-
-    /* Dark-mode toggle icon swap */
-    #dark-mode-toggle .icon-sun {
-      display: none;
-    }
-
-    html.dark #dark-mode-toggle .icon-moon {
-      display: none;
-    }
-
-    html.dark #dark-mode-toggle .icon-sun {
-      display: block;
-    }
-  </style>
-  <script type="module" crossorigin src="/assets/style-DRn-UuLi.js"></script>
-  <script type="module" crossorigin src="/assets/main-Cw6lnxjb.js"></script>
-  <link rel="stylesheet" crossorigin href="/assets/style--D5EIK1t.css">
+  <script type="module" crossorigin src="/assets/style-Dvy3hEFi.js"></script>
+  <script type="module" crossorigin src="/assets/main-GGGOyK29.js"></script>
+  <link rel="stylesheet" crossorigin href="/assets/style-DRT_feOf.css">
 </head>
 
-<body class="antialiased min-h-screen flex flex-col">
-  <header id="site-header" class="site-nav pb-5 sticky top-0 z-50 transition-shadow duration-300">
+<body class="antialiased min-h-screen flex flex-col font-sans bg-[var(--cream)] text-[var(--ink)]">
+  <header id="site-header"
+    class="site-nav pb-5 sticky top-0 z-50 bg-[color-mix(in_srgb,var(--cream)_94%,transparent)] backdrop-blur-[14px] transition-[padding,box-shadow,background-color] duration-350 ease-in-out">
     <!-- Announcement bar: trivia night info, sits above the header -->
     <div id="announcement-bar" class="relative w-full ember-gradient transition-all duration-300 overflow-hidden">
-      <div class="container mx-auto px-4 py-2.5 flex items-center justify-center gap-3 text-center">
+      <div class="container mx-auto max-w-[1250px] px-4 py-2.5 flex items-center justify-center gap-3 text-center">
         <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.2"
           stroke-linecap="round" stroke-linejoin="round" class="shrink-0 hidden sm:block">
           <circle cx="12" cy="12" r="9" />
@@ -447,64 +39,7 @@
         </button>
       </div>
     </div>
-    <nav class="container mx-auto px-5" aria-label="Main navigation">
-
-      <!-- =====================================================
-       DESKTOP TOP BAR
-       ===================================================== -->
-      <div id="top-bar" class="hidden md:flex justify-between items-center overflow-hidden
-      max-h-20 py-2 opacity-100
-      border-b border-gray-100 text-xs lg:text-sm text-[#3F2A1D]
-      transition-[max-height,padding,opacity,border-color] duration-300 ease-in-out">
-
-        <!-- Left -->
-        <div class="flex items-center gap-6">
-
-          <!-- Hours -->
-          <p class="flex items-center gap-1.5">
-            <svg class="w-4 h-4 shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"
-              aria-hidden="true">
-              <path stroke-linecap="round" stroke-linejoin="round" d="M12 6v6l4 2" />
-              <circle cx="12" cy="12" r="9" />
-            </svg>
-
-            <span class="text-xs">
-              <strong>Today's Hours:</strong> 3 PM–11 PM
-            </span>
-          </p>
-
-          <!-- Address -->
-          <p class="flex items-center gap-1.5">
-            <svg class="w-4 h-4 shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"
-              aria-hidden="true">
-              <path stroke-linecap="round" stroke-linejoin="round"
-                d="M12 21s7-6.1 7-12a7 7 0 1 0-14 0c0 5.9 7 12 7 12Z" />
-              <circle cx="12" cy="9" r="2.5" />
-            </svg>
-
-            <span class="text-xs">
-              2394 Robie St, Halifax, NS B3K 4M7
-            </span>
-          </p>
-
-        </div>
-
-        <!-- Phone -->
-        <a href="tel:+19024743076" class="flex items-center gap-1.5 hover:text-[#a75624] transition font-medium">
-
-          <svg class="w-4 h-4 shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"
-            aria-hidden="true">
-            <path stroke-linecap="round" stroke-linejoin="round"
-              d="M2.5 5.5A2.5 2.5 0 0 1 5 3h2l2 5-2.5 2.5a15 15 0 0 0 7 7L16 15l5 2v2a2.5 2.5 0 0 1-2.5 2.5C10.5 21.5 2.5 13.5 2.5 5.5Z" />
-          </svg>
-
-          <span class="text-xs">
-            +1 902-474-3076
-          </span>
-        </a>
-
-      </div>
-
+    <nav class="container mx-auto max-w-[1250px] px-5" aria-label="Main navigation">
 
       <!-- =====================================================
        MAIN HEADER
@@ -512,84 +47,77 @@
       <div id="main-header" class="relative flex items-center justify-between gap-3 py-3
       transition-all duration-300 ease-in-out">
 
-        <!-- ===================================================
-         LEFT: LANGUAGE + DARK MODE
-         =================================================== -->
-        <div class="flex items-center gap-3 shrink-0 md:flex-1">
+        <!-- Info Dropdowns -->
+        <div class="hidden md:flex flex-1 z-50 items-center space-x-6 text-sm font-medium text-gray-700">
 
-          <!-- LANGUAGE SELECTOR -->
-          <div class="relative">
-
-            <button id="language-toggle" type="button"
-              class="flex items-center gap-1 text-[#3F2A1D] hover:text-[#a75624] transition"
-              aria-label="Select language" aria-expanded="false" aria-controls="language-menu">
-
-              <!-- Globe: desktop only -->
-              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
-                stroke="currentColor" class="hidden md:block w-5 h-5 shrink-0">
-                <path stroke-linecap="round" stroke-linejoin="round"
-                  d="M12 21a9.004 9.004 0 0 0 8.716-6.747M12 21a9.004 9.004 0 0 1-8.716-6.747M12 21c2.485 0 4.5-4.03 4.5-9S14.485 3 12 3m0 18c-2.485 0-4.5-4.03-4.5-9S9.515 3 12 3m0 0a8.997 8.997 0 0 1 7.843 4.582M12 3a8.997 8.997 0 0 0-7.843 4.582" />
+          <!-- Hours Dropdown -->
+          <div class="relative group">
+            <button class="flex items-center gap-2 hover:text-gray-900 py-2 transition-colors">
+              <svg class="w-5 h-5 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                  d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
               </svg>
-
-              <span id="current-language" class="font-semibold text-xs leading-none">
-                EN
-              </span>
-
-              <!-- Arrow -->
-              <svg id="language-arrow" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
-                stroke-width="1.5" stroke="currentColor" class="w-3.5 h-3.5 shrink-0 transition-transform duration-200">
-                <path stroke-linecap="round" stroke-linejoin="round" d="m19.5 8.25-7.5 7.5-7.5-7.5" />
+              <span>Hours</span>
+              <svg class="w-4 h-4 text-gray-400 group-hover:rotate-180 transition-transform" fill="none"
+                stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
               </svg>
-
             </button>
 
-
-            <!-- Language Dropdown -->
-            <div id="language-menu" class="hidden absolute top-full left-0 mt-3 min-w-[140px]
-            z-[100] overflow-hidden rounded-md
-            border border-gray-200 bg-white shadow-lg">
-
-              <a href="/" class="language-option block w-full px-4 py-2.5 text-left text-sm
-              text-[#3F2A1D] hover:bg-gray-50 hover:text-[#a75624] transition" data-language="EN">
-                English
-              </a>
-
-              <a href="/fr/" class="language-option block w-full px-4 py-2.5 text-left text-sm
-              text-[#3F2A1D] hover:bg-gray-50 hover:text-[#a75624] transition" data-language="FR">
-                French
-              </a>
-
+            <!-- Dropdown Menu: the outer element sits flush against the button (top-full,
+                 no margin) and uses padding — not margin — to create the visual gap, so the
+                 hoverable area is continuous from button to panel with no dead zone. -->
+            <div class="absolute left-0 top-full w-64 pt-2 hidden group-hover:block">
+              <div class="bg-white rounded-lg shadow-xl border border-gray-100 p-4">
+                <p class="font-semibold text-gray-900 mb-2 pb-1 border-b border-gray-100">Weekly Schedule</p>
+                <ul class="space-y-1.5 text-xs text-gray-600">
+                  <li class="flex justify-between"><span>Mon – Thu</span> <span class="font-medium text-gray-900">11:00
+                      AM – 10:00 PM</span></li>
+                  <li class="flex justify-between"><span>Fri – Sat</span> <span class="font-medium text-gray-900">11:00
+                      AM – 11:00 PM</span></li>
+                  <li class="flex justify-between"><span>Sunday</span> <span class="font-medium text-gray-900">12:00 PM
+                      – 9:00 PM</span></li>
+                </ul>
+              </div>
             </div>
-
           </div>
 
+          <!-- Address Dropdown -->
+          <div class="relative group">
+            <button class="flex items-center gap-2 hover:text-gray-900 py-2 transition-colors">
+              <svg class="w-5 h-5 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                  d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                  d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
+              </svg>
+              <span>Address</span>
+              <svg class="w-4 h-4 text-gray-400 group-hover:rotate-180 transition-transform" fill="none"
+                stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+              </svg>
+            </button>
 
-          <!-- DARK MODE -->
-          <button id="dark-mode-toggle" type="button" aria-label="Toggle dark mode" aria-pressed="false"
-            class="flex items-center justify-center text-[#3F2A1D] hover:text-[#a75624] transition">
-
-            <!-- Moon: shown in light mode, click to switch to dark -->
-            <svg class="icon-moon w-5 h-5" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
-              stroke-width="1.5" stroke="currentColor">
-              <path stroke-linecap="round" stroke-linejoin="round"
-                d="M21.752 15.002A9.72 9.72 0 0 1 18 15.75c-5.385 0-9.75-4.365-9.75-9.75 0-1.33.266-2.597.748-3.752A9.753 9.753 0 0 0 3 11.25C3 16.635 7.365 21 12.75 21a9.753 9.753 0 0 0 9.002-5.998Z" />
-            </svg>
-
-            <!-- Sun: shown in dark mode, click to switch to light -->
-            <svg class="icon-sun w-5 h-5" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
-              stroke-width="1.5" stroke="currentColor">
-              <path stroke-linecap="round" stroke-linejoin="round"
-                d="M12 3v2.25m6.364.386-1.591 1.591M21 12h-2.25m-.386 6.364-1.591-1.591M12 18.75V21m-4.773-4.227-1.591 1.591M5.25 12H3m4.227-4.773L5.636 5.636M15.75 12a3.75 3.75 0 1 1-7.5 0 3.75 3.75 0 0 1 7.5 0Z" />
-            </svg>
-
-          </button>
+            <!-- Dropdown Menu: same padding-bridged hitbox as the Hours dropdown above. -->
+            <div class="absolute left-0 top-full w-64 pt-2 hidden group-hover:block">
+              <div class="bg-white rounded-lg shadow-xl border border-gray-100 p-4">
+                <p class="font-semibold text-gray-900 mb-1">Our Location</p>
+                <address class="not-italic text-xs text-gray-600 leading-relaxed mb-3">
+                  123 Main Street,<br>
+                  Suite 100, New York, NY 10001
+                </address>
+                <a href="https://maps.google.com" target="_blank" rel="noopener"
+                  class="inline-flex items-center text-xs text-indigo-600 font-semibold hover:underline">
+                  Get Directions &rarr;
+                </a>
+              </div>
+            </div>
+          </div>
 
         </div>
 
-
         <!-- ===================================================
          LOGO
-         Fixed size on mobile — desktop resizes smoothly
          =================================================== -->
         <a href="/" class="absolute left-1/2 -translate-x-1/2
         md:static md:translate-x-0 md:mx-auto shrink-0" aria-label="The Bonfire home">
@@ -647,55 +175,50 @@
         py-0 text-[#3F2A1D] text-sm">
 
           <li>
-            <a href="/#home" class="nav-link block px-2 py-2 transition">
+            <a href="/#home"
+              class="nav-link relative block px-2 py-2 transition after:content-[''] after:absolute after:left-2 after:right-2 after:-bottom-[0.15rem] after:h-[2px] after:scale-x-0 after:origin-center after:bg-[var(--ember-2)] after:transition-transform after:duration-250 hover:after:scale-x-100 aria-[current=page]:after:scale-x-100">
               HOME
             </a>
           </li>
 
           <li>
-            <a href="/menu" class="nav-link block px-2 py-2 transition">
+            <a href="/menu"
+              class="nav-link relative block px-2 py-2 transition after:content-[''] after:absolute after:left-2 after:right-2 after:-bottom-[0.15rem] after:h-[2px] after:scale-x-0 after:origin-center after:bg-[var(--ember-2)] after:transition-transform after:duration-250 hover:after:scale-x-100 aria-[current=page]:after:scale-x-100">
               MENU
             </a>
           </li>
 
           <li>
-            <a href="/catering" class="nav-link block px-2 py-2 transition">
+            <a href="/catering"
+              class="nav-link relative block px-2 py-2 transition after:content-[''] after:absolute after:left-2 after:right-2 after:-bottom-[0.15rem] after:h-[2px] after:scale-x-0 after:origin-center after:bg-[var(--ember-2)] after:transition-transform after:duration-250 hover:after:scale-x-100 aria-[current=page]:after:scale-x-100">
               CATERING
             </a>
           </li>
 
           <li>
-            <a href="/events" class="nav-link block px-2 py-2 transition">
+            <a href="/events"
+              class="nav-link relative block px-2 py-2 transition after:content-[''] after:absolute after:left-2 after:right-2 after:-bottom-[0.15rem] after:h-[2px] after:scale-x-0 after:origin-center after:bg-[var(--ember-2)] after:transition-transform after:duration-250 hover:after:scale-x-100 aria-[current=page]:after:scale-x-100">
               RESERVATION &amp; EVENTS
             </a>
           </li>
 
           <li>
-            <a href="/location" class="nav-link block px-2 py-2 transition">
-              LOCATION &amp; HOURS
-            </a>
-          </li>
-
-          <li>
-            <a href="#about" class="nav-link block px-2 py-2 transition">
+            <a href="#about"
+              class="nav-link relative block px-2 py-2 transition after:content-[''] after:absolute after:left-2 after:right-2 after:-bottom-[0.15rem] after:h-[2px] after:scale-x-0 after:origin-center after:bg-[var(--ember-2)] after:transition-transform after:duration-250 hover:after:scale-x-100 aria-[current=page]:after:scale-x-100">
               ABOUT US
             </a>
           </li>
 
           <li>
-            <a href="/contact" class="nav-link block px-2 py-2 transition">
+            <a href="/contact"
+              class="nav-link relative block px-2 py-2 transition after:content-[''] after:absolute after:left-2 after:right-2 after:-bottom-[0.15rem] after:h-[2px] after:scale-x-0 after:origin-center after:bg-[var(--ember-2)] after:transition-transform after:duration-250 hover:after:scale-x-100 aria-[current=page]:after:scale-x-100">
               CONTACT US
             </a>
           </li>
 
           <li>
-            <a href="/blog" class="nav-link block px-2 py-2 transition">
-              BLOG
-            </a>
-          </li>
-
-          <li>
-            <a href="#faq" class="nav-link block px-2 py-2 transition">
+            <a href="#faq"
+              class="nav-link relative block px-2 py-2 transition after:content-[''] after:absolute after:left-2 after:right-2 after:-bottom-[0.15rem] after:h-[2px] after:scale-x-0 after:origin-center after:bg-[var(--ember-2)] after:transition-transform after:duration-250 hover:after:scale-x-100 aria-[current=page]:after:scale-x-100">
               FAQ
             </a>
           </li>
@@ -711,9 +234,9 @@
    MOBILE MENU OVERLAY
    ========================================================= -->
   <div id="mobile-menu" class="hidden md:hidden fixed
-  left-0 right-0 bottom-12 z-40
-  bg-white border-t border-gray-100
-  overflow-y-auto">
+  left-0 right-0 bottom-12 z-40 max-md:absolute max-md:top-full
+  bg-white/98 border-t border-gray-100
+  shadow-[0_16px_30px_rgba(36,29,22,0.12)] overflow-y-auto">
 
     <div class="px-5 py-4">
 
@@ -740,12 +263,6 @@
         <li>
           <a href="/events" class="mobile-nav-link block py-3.5 border-b border-gray-100">
             RESERVATION &amp; EVENTS
-          </a>
-        </li>
-
-        <li>
-          <a href="/location" class="mobile-nav-link block py-3.5 border-b border-gray-100">
-            LOCATION &amp; HOURS
           </a>
         </li>
 
@@ -816,16 +333,13 @@
 
   <!-- Event Popup: shows automatically on every page load -->
   <div id="event-popup-overlay"
-    class="fixed inset-0 z-[100] flex items-center justify-center p-4 opacity-0 pointer-events-none transition-opacity duration-300"
-    style="background: rgba(26,21,16,.6);">
+    class="fixed inset-0 z-[100] flex items-center justify-center p-4 opacity-0 pointer-events-none transition-opacity duration-300 bg-[#1a1510]/60">
     <div id="event-popup-card" role="dialog" aria-modal="true" aria-labelledby="event-popup-title"
-      class="relative w-full max-w-sm sm:max-w-md rounded-3xl overflow-hidden shadow-2xl translate-y-3 opacity-0 transition-all duration-300"
-      style="background:var(--panel-a);">
+      class="relative w-full max-w-sm sm:max-w-md rounded-3xl overflow-hidden shadow-2xl translate-y-3 opacity-0 transition-all duration-300 bg-[var(--panel-a)]">
 
       <!-- Close button -->
       <button id="event-popup-close" type="button" aria-label="Close"
-        class="absolute top-3 right-3 z-10 w-9 h-9 rounded-full flex items-center justify-center transition hover:brightness-110"
-        style="background: rgba(26,21,16,.55); color: var(--cream);">
+        class="absolute top-3 right-3 z-10 w-9 h-9 rounded-full flex items-center justify-center transition hover:brightness-110 bg-[#1a1510]/55 text-[var(--cream)]">
         <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"
           stroke-linecap="round" stroke-linejoin="round">
           <path d="M18 6 6 18M6 6l12 12" />
@@ -836,7 +350,7 @@
       <div class="relative aspect-[16/10] overflow-hidden">
         <img src="/assets/team-BY26SOE5.avif" alt="Guests playing trivia night at The Bonfire"
           class="w-full h-full object-cover" />
-        <div class="absolute inset-0" style="background: linear-gradient(to top, rgba(26,21,16,.55), transparent 55%);">
+        <div class="absolute inset-0 bg-gradient-to-t from-[#1a1510]/55 via-transparent via-55% to-transparent">
         </div>
         <span
           class="absolute bottom-3 left-4 inline-flex items-center gap-2 text-[11px] font-semibold tracking-[0.2em] uppercase px-3 py-1.5 rounded-full ember-gradient text-white">
@@ -846,11 +360,11 @@
 
       <!-- Info -->
       <div class="p-6 sm:p-7 text-center">
-        <h3 id="event-popup-title" class="font-display text-2xl sm:text-[26px] font-medium leading-[1.15]"
-          style="color:var(--ink);">
+        <h3 id="event-popup-title"
+          class="font-display text-2xl sm:text-[26px] font-medium leading-[1.15] text-[var(--ink)]">
           Trivia Night is back
         </h3>
-        <p class="mt-2.5 text-sm leading-relaxed" style="color:var(--ink-soft);">
+        <p class="mt-2.5 text-sm leading-relaxed text-[var(--ink-soft)]">
           Brooklyn 99 edition — 7pm sharp. Grab a team, grab a table, and grab something off the grill.
           Prizes for the top two teams, bragging rights for everyone else.
         </p>
@@ -861,8 +375,7 @@
             Reserve a Table
           </a>
           <button id="event-popup-dismiss" type="button"
-            class="inline-flex items-center justify-center px-6 py-2.5 rounded-full text-sm font-semibold transition border border-black/10 hover:bg-black/5"
-            style="color:var(--ink-soft);">
+            class="inline-flex items-center justify-center px-6 py-2.5 rounded-full text-sm font-semibold transition border border-black/10 hover:bg-black/5 text-[var(--ink-soft)]">
             Maybe next time
           </button>
         </div>
@@ -870,10 +383,10 @@
     </div>
   </div>
 
-  <main class="container mx-auto px-5">
+  <main class="container mx-auto max-w-[1250px] px-5">
     <!-- hero -->
     <section id="home"
-      class="min-h-[57vh] md:h-[57vh] w-full mb-20 md:mb-22 mt-2 md:mt-8 flex flex-col md:flex-row justify-between gap-6 md:gap-8">
+      class="hero-section max-md:mt-2 min-h-[57vh] md:h-[57vh] w-full mb-20 md:mb-22 mt-2 md:mt-8 flex flex-col md:flex-row justify-between gap-6 md:gap-8">
       <!-- left -->
       <div class="w-full h-full flex-1">
         <div
@@ -889,7 +402,8 @@
           </div>
 
           <div class="text-center z-10 px-4">
-            <h3 class="mb-4 text-base sm:text-lg md:text-xl text-[#3F2A1D] font-bold">Comfort Food Off The Grill</h3>
+            <h3 class="mb-4 text-base sm:text-lg md:text-xl text-[#3F2A1D] font-bold">Comfort
+              Food Off The Grill</h3>
             <a href="/order" class="relative inline-flex py-2 px-9 text-base border-2 border-[#3F2A1D]
           hover:border-red-300
           [clip-path:polygon(10%_0%,_100%_0%,_100%_90%,_90%_100%,_0%_100%,_0%_10%)]">
@@ -908,7 +422,7 @@
           </p>
         </div>
 
-        <!-- Google Reviews (desktop only, mobile version is combined below) -->
+        <!-- Google Reviews (desktop only) -->
         <div class="hidden md:flex gap-1 mt-3 text-xs">
           <span>4.7</span>
           <svg class="w-17" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 490 98" fill="#f0c800">
@@ -931,14 +445,14 @@
       <div class="w-full h-full flex-1">
         <div class="relative h-[240px] sm:h-[320px] md:h-full overflow-hidden rounded-2xl bg-red-500 cursor-pointer"
           id="playerWrap">
-          <!-- Thumbnail (shown when the video is paused) -->
+          <!-- Thumbnail -->
           <img id="thumbnail"
             class="absolute inset-0 w-full h-full object-cover transition-opacity duration-700 ease-in-out z-10"
             src="/assets/burger-BR0oFFl6.jpg" alt="Video thumbnail">
 
           <!-- Video -->
           <video id="video" class="absolute inset-0 w-full h-full object-cover" muted playsinline preload="auto"
-            src="/assets/hero-section-video-CRsxl6HD.mp4"></video>
+            src="/src/assets/videos/hero-section-video.mp4"></video>
 
           <!-- Play/Pause button -->
           <button id="playPauseBtn" type="button" aria-label="Play video" class="absolute inset-0 m-auto z-20 flex items-center justify-center w-14 h-14 md:w-16 md:h-16 rounded-full
@@ -951,9 +465,8 @@
               <path d="M6 5h4v14H6zM14 5h4v14h-4z" />
             </svg>
           </button>
-          <!-- The entire video panel is the play/pause control. -->
         </div>
-        <!-- Follow us on Instagram (desktop only, mobile version is combined below) -->
+        <!-- Follow us on Instagram (desktop only) -->
         <div class="hidden md:flex justify-end mt-3 px-1">
           <a href="https://instagram.com" target="_blank" rel="noopener noreferrer"
             class="flex items-center gap-1.5 text-sm font-medium text-neutral-700 hover:text-red-500 transition-colors">
@@ -968,7 +481,7 @@
         </div>
       </div>
 
-      <!-- Mobile-only combined row: reviews + follow us on same line -->
+      <!-- Mobile-only combined row -->
       <div class="flex md:hidden items-center justify-between px-1 -mt-2">
         <div class="flex items-center gap-1 text-[10px]">
           <span>4.7</span>
@@ -999,9 +512,9 @@
       </div>
     </section>
 
-    <!-- About: founders' story, text left / portrait right -->
+    <!-- About section -->
     <section id="about" class="relative mb-20">
-      <div class="container mx-auto">
+      <div class="container mx-auto max-w-[1250px]">
         <div class="reveal mb-12 md:mb-16 grid grid-cols-1 md:grid-cols-2 gap-5">
           <!-- Eyebrow + Heading -->
           <div class="order-1 md:order-1 md:col-start-1 md:row-start-1">
@@ -1018,9 +531,9 @@
 
           <!-- Image -->
           <div
-            class="order-2 overflow-hidden md:order-2 md:col-start-2 md:row-start-1 md:row-span-2 relative rounded-2xl overflow-hidden h-64 sm:h-72 md:h-80 lg:h-[340px]">
-            <img class="scale-150 -translate-y-12" src="/assets/owners-7U-s24N7.jpg"
-              alt="Vince and Kristyn, co-owners of The Bonfire" class="w-full h-full object-cover" />
+            class="order-2 overflow-hidden md:order-2 md:col-start-2 md:row-start-1 md:row-span-2 relative rounded-2xl h-64 sm:h-72 md:h-80 lg:h-[340px]">
+            <img class="scale-150 -translate-y-12 w-full h-full object-cover"
+              src="/assets/owners-7U-s24N7.jpg" alt="Vince and Kristyn, co-owners of The Bonfire" />
           </div>
 
           <!-- Paragraph -->
@@ -1035,7 +548,6 @@
           </div>
         </div>
 
-        <!-- Small eyebrow title, no accompanying heading -->
         <span
           class="reveal inline-flex items-center gap-2 text-[8px] sm:text-xs font-semibold tracking-[0.1em] sm:tracking-[0.25em] uppercase ember-text mb-5 whitespace-nowrap">
           <span class="w-6 h-px ember-gradient shrink-0"></span>
@@ -1047,15 +559,14 @@
           class="grid grid-cols-1 md:grid-cols-3 gap-0 md:gap-0 rounded-3xl overflow-hidden border border-black/5 divide-y md:divide-y-0 md:divide-x divide-black/5">
 
           <!-- Card 1 -->
-          <article class="card reveal p-3 md:p-6" style="background:var(--panel-a); transition-delay:.05s">
+          <article
+            class="card reveal group p-3 md:p-6 bg-[var(--panel-a)] relative overflow-hidden transition-[transform,box-shadow,background-color] duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] hover:-translate-y-1.5 [transition-delay:.05s]">
             <div class="relative rounded-2xl overflow-hidden mb-4 aspect-[16/11]">
               <img src="/assets/team-BY26SOE5.avif" alt="Friends laughing together at a table"
-                class="card-img w-full h-full object-cover" />
+                class="card-img w-full h-full object-cover transition-[transform,filter] duration-800 ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:scale-[1.045]" />
             </div>
             <h3 class="font-display text-lg sm:text-xl font-semibold mb-2.5 text-[var(--ink)] whitespace-nowrap">We
-              Don't
-              Accept Tips
-            </h3>
+              Don't Accept Tips</h3>
             <p class="text-base leading-snug text-[var(--ink-soft)]">
               We don't treat staff as <span class="font-semibold text-[var(--ink)]">expendable</span> or guests as
               <span class="font-semibold text-[var(--ink)]">profit-drivers</span>. Our team starts at $20/hr, plus 50%
@@ -1064,14 +575,14 @@
           </article>
 
           <!-- Card 2 -->
-          <article class="card reveal p-3 md:p-6" style="background:var(--panel-b); transition-delay:.15s">
+          <article
+            class="card reveal group p-3 md:p-6 bg-[var(--panel-b)] relative overflow-hidden transition-[transform,box-shadow,background-color] duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] hover:-translate-y-1.5 [transition-delay:.15s]">
             <div class="relative rounded-2xl overflow-hidden mb-4 aspect-[16/11]">
               <img src="/assets/staff-6otlpZlw.jpg" alt="Bacon cheeseburger fresh off the grill"
-                class="card-img w-full h-full object-cover" style="object-position: center 45%;" />
+                class="card-img w-full h-full object-cover transition-[transform,filter] duration-800 ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:scale-[1.045] object-[center_45%]" />
             </div>
             <h3 class="font-display text-lg sm:text-xl font-semibold mb-2.5 text-[var(--ink)] whitespace-nowrap">Comfort
-              Food Off The
-              Grill</h3>
+              Food Off The Grill</h3>
             <p class="text-base leading-snug text-[var(--ink-soft)]">
               Comfort food, done with care — with <span class="font-semibold text-[var(--ink)]">allergy-friendly
                 options</span>, because we believe it's easy to be accommodating.
@@ -1079,10 +590,11 @@
           </article>
 
           <!-- Card 3 -->
-          <article class="card reveal p-3 md:p-6" style="background:var(--panel-c); transition-delay:.25s">
+          <article
+            class="card reveal group p-3 md:p-6 bg-[var(--panel-c)] relative overflow-hidden transition-[transform,box-shadow,background-color] duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] hover:-translate-y-1.5 [transition-delay:.25s]">
             <div class="relative rounded-2xl overflow-hidden mb-4 aspect-[16/11]">
               <img src="/assets/drink4-CrqNMYAP.png" alt="Bright red mocktail garnished with raspberries"
-                class="card-img w-full h-full object-cover" style="object-position: center 80%;" />
+                class="card-img w-full h-full object-cover transition-[transform,filter] duration-800 ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:scale-[1.045] object-[center_80%]" />
             </div>
             <h3 class="font-display text-lg sm:text-xl font-semibold mb-2.5 text-[var(--ink)] whitespace-nowrap">
               Alcohol-Free Options
@@ -1095,13 +607,11 @@
 
         </div>
 
-        <!-- closing strip, quiet echo of the hero's rating line -->
+        <!-- Closing strip -->
         <div
-          class="reveal mt-20 px-6 md:px-8 py-6 flex flex-col sm:flex-row items-center justify-between gap-5 md:gap-6 rounded-2xl text-center sm:text-left"
-          style="background: var(--panel-b); transition-delay:.3s">
+          class="reveal mt-20 px-6 md:px-8 py-6 flex flex-col sm:flex-row items-center justify-between gap-5 md:gap-6 rounded-2xl text-center sm:text-left bg-[var(--panel-b)] [transition-delay:.3s]">
           <p class="font-display text-lg md:text-xl text-[var(--ink)]">Hungry yet? Explore our delicious, inclusive menu
-            of great
-            food and drinks.</p>
+            of great food and drinks.</p>
           <a href="#"
             class="shrink-0 inline-flex items-center gap-2 px-6 py-3 rounded-full text-sm font-semibold text-white ember-gradient shadow-lg shadow-orange-900/10 hover:brightness-105 transition">
             View The Menu
@@ -1115,9 +625,9 @@
       </div>
     </section>
 
-    <!-- Reviews: draggable slider, placeholder data structured to be swapped for live Google reviews later -->
+    <!-- Reviews -->
     <section id="reviews" class="relative overflow-hidden mb-20">
-      <div class="container mx-auto">
+      <div class="container mx-auto max-w-[1250px]">
         <div class="reveal flex flex-wrap items-center gap-4 md:gap-5 mb-7 md:mb-9">
           <span class="inline-flex items-center gap-2 text-xs font-semibold tracking-[0.25em] uppercase ember-text">
             <span class="w-6 h-px ember-gradient"></span>
@@ -1125,7 +635,7 @@
           </span>
           <div class="flex items-center gap-2.5">
             <span class="font-display font-semibold text-[var(--ink)] leading-none">4.7</span>
-            <div class="flex gap-0.5" style="color:var(--ember-2);" aria-label="4.7 out of 5 stars">
+            <div class="flex gap-0.5 text-[var(--ember-2)]" aria-label="4.7 out of 5 stars">
               <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor">
                 <path d="M12 2l3.1 6.3 6.9 1-5 4.9 1.2 6.9L12 17.8 5.8 21l1.2-6.9-5-4.9 6.9-1L12 2Z" />
               </svg>
@@ -1143,31 +653,29 @@
                   fill-opacity=".55" />
               </svg>
             </div>
-            <span class="text-sm" style="color:var(--ink-soft);">135 reviews</span>
+            <span class="text-sm text-[var(--ink-soft)]">135 reviews</span>
           </div>
         </div>
 
         <!-- Slider -->
         <div class="reveal relative">
-          <!-- Track: populated by JS from the REVIEWS array below (swap for a live Google feed later) -->
-          <div id="reviews-track" class="flex gap-5 overflow-x-auto pb-2" style="-webkit-overflow-scrolling: touch;">
+          <div id="reviews-track"
+            class="flex gap-5 overflow-x-auto pb-2 scrollbar-none touch-pan-y cursor-grab [&.is-dragging]:cursor-grabbing [&.is-dragging]:select-none [&::-webkit-scrollbar]:hidden">
           </div>
         </div>
 
-        <!-- Arrows + Read all reviews -->
+        <!-- Controls -->
         <div class="reveal flex items-center justify-between mt-1">
           <div class="flex items-center gap-2">
             <button id="reviews-prev" aria-label="Previous reviews"
-              class="w-10 h-10 rounded-full inline-flex items-center justify-center transition hover:bg-black/10 disabled:opacity-30 disabled:cursor-not-allowed border border-black/10"
-              style="color:var(--ink);">
+              class="w-10 h-10 rounded-full inline-flex items-center justify-center transition hover:bg-black/10 disabled:opacity-30 disabled:cursor-not-allowed border border-black/10 text-[var(--ink)]">
               <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
                 stroke-linecap="round" stroke-linejoin="round">
                 <path d="m15 18-6-6 6-6" />
               </svg>
             </button>
             <button id="reviews-next" aria-label="Next reviews"
-              class="w-10 h-10 rounded-full inline-flex items-center justify-center transition hover:bg-black/10 disabled:opacity-30 disabled:cursor-not-allowed border border-black/10"
-              style="color:var(--ink);">
+              class="w-10 h-10 rounded-full inline-flex items-center justify-center transition hover:bg-black/10 disabled:opacity-30 disabled:cursor-not-allowed border border-black/10 text-[var(--ink)]">
               <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
                 stroke-linecap="round" stroke-linejoin="round">
                 <path d="m9 18 6-6-6-6" />
@@ -1175,7 +683,7 @@
             </button>
           </div>
 
-          <a href="#" class="text-sm font-semibold underline decoration-[var(--ember-2)]" style="color:var(--ink);">
+          <a href="#" class="text-sm font-semibold underline decoration-[var(--ember-2)] text-[var(--ink)]">
             Read all our reviews on Google →
           </a>
         </div>
@@ -1183,7 +691,7 @@
       </div>
     </section>
 
-    <!-- faq -->
+    <!-- FAQ -->
     <section id="faq" class="relative mb-20">
       <div class="mx-auto max-w-2xl">
 
@@ -1199,19 +707,22 @@
           </h2>
         </div>
 
-        <div class="reveal divide-y divide-black/10 rounded-3xl border border-black/5 overflow-hidden"
-          style="background:var(--panel-a);">
+        <div
+          class="reveal divide-y divide-black/10 rounded-3xl border border-black/5 overflow-hidden bg-[var(--panel-a)] transition-colors duration-300">
 
           <details class="faq-item group">
-            <summary class="faq-summary">
+            <summary
+              class="faq-summary list-none cursor-pointer flex items-center justify-between gap-4 p-4 sm:px-5 sm:py-[1.15rem] font-display font-semibold text-[1.0625rem] text-[var(--ink)] hover:bg-[#e2572a]/5 transition-colors duration-300 [&::-webkit-details-marker]:hidden">
               <span>Do you serve alcohol?</span>
-              <svg class="faq-chevron" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+              <svg
+                class="faq-chevron shrink-0 text-[var(--ember-2)] transition-transform duration-350 ease-[cubic-bezier(0.16,1,0.3,1)] group-open:rotate-180"
+                width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"
+                stroke-linecap="round" stroke-linejoin="round">
                 <path d="M6 9l6 6 6-6" />
               </svg>
             </summary>
             <div class="faq-answer-wrap">
-              <div class="faq-answer">
+              <div class="faq-answer px-5 pb-[1.35rem] text-[0.9375rem] leading-[1.7] text-[var(--ink-soft)]">
                 Yes — we run a full bar. And every mixed drink on the menu also comes in an
                 <span class="font-semibold text-[var(--ink)]">alcohol-free version by default</span>, with spirit
                 pairings on hand for anyone who wants them. So whether you're drinking or not, nobody's stuck
@@ -1221,15 +732,18 @@
           </details>
 
           <details class="faq-item group">
-            <summary class="faq-summary">
+            <summary
+              class="faq-summary list-none cursor-pointer flex items-center justify-between gap-4 p-4 sm:px-5 sm:py-[1.15rem] font-display font-semibold text-[1.0625rem] text-[var(--ink)] hover:bg-[#e2572a]/5 transition-colors duration-300 [&::-webkit-details-marker]:hidden">
               <span>Can you accommodate allergies and dietary restrictions?</span>
-              <svg class="faq-chevron" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+              <svg
+                class="faq-chevron shrink-0 text-[var(--ember-2)] transition-transform duration-350 ease-[cubic-bezier(0.16,1,0.3,1)] group-open:rotate-180"
+                width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"
+                stroke-linecap="round" stroke-linejoin="round">
                 <path d="M6 9l6 6 6-6" />
               </svg>
             </summary>
             <div class="faq-answer-wrap">
-              <div class="faq-answer">
+              <div class="faq-answer px-5 pb-[1.35rem] text-[0.9375rem] leading-[1.7] text-[var(--ink-soft)]">
                 This one matters to us. The menu includes clearly marked
                 <span class="font-semibold text-[var(--ink)]">gluten-free, plant-based, and allergy-friendly</span>
                 options throughout — not just a token substitution here and there. If you're managing a specific
@@ -1241,15 +755,18 @@
           </details>
 
           <details class="faq-item group">
-            <summary class="faq-summary">
+            <summary
+              class="faq-summary list-none cursor-pointer flex items-center justify-between gap-4 p-4 sm:px-5 sm:py-[1.15rem] font-display font-semibold text-[1.0625rem] text-[var(--ink)] hover:bg-[#e2572a]/5 transition-colors duration-300 [&::-webkit-details-marker]:hidden">
               <span>Do you take reservations?</span>
-              <svg class="faq-chevron" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+              <svg
+                class="faq-chevron shrink-0 text-[var(--ember-2)] transition-transform duration-350 ease-[cubic-bezier(0.16,1,0.3,1)] group-open:rotate-180"
+                width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"
+                stroke-linecap="round" stroke-linejoin="round">
                 <path d="M6 9l6 6 6-6" />
               </svg>
             </summary>
             <div class="faq-answer-wrap">
-              <div class="faq-answer">
+              <div class="faq-answer px-5 pb-[1.35rem] text-[0.9375rem] leading-[1.7] text-[var(--ink-soft)]">
                 Yes, for parties of any size — walk-ins are always welcome too, but a reservation guarantees your
                 table, especially on trivia nights (Brooklyn 99, Marvel, and more, roughly every other week).
                 For larger groups or private bookings, email us at
@@ -1261,15 +778,18 @@
           </details>
 
           <details class="faq-item group">
-            <summary class="faq-summary">
+            <summary
+              class="faq-summary list-none cursor-pointer flex items-center justify-between gap-4 p-4 sm:px-5 sm:py-[1.15rem] font-display font-semibold text-[1.0625rem] text-[var(--ink)] hover:bg-[#e2572a]/5 transition-colors duration-300 [&::-webkit-details-marker]:hidden">
               <span>Do you host private events?</span>
-              <svg class="faq-chevron" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+              <svg
+                class="faq-chevron shrink-0 text-[var(--ember-2)] transition-transform duration-350 ease-[cubic-bezier(0.16,1,0.3,1)] group-open:rotate-180"
+                width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"
+                stroke-linecap="round" stroke-linejoin="round">
                 <path d="M6 9l6 6 6-6" />
               </svg>
             </summary>
             <div class="faq-answer-wrap">
-              <div class="faq-answer">
+              <div class="faq-answer px-5 pb-[1.35rem] text-[0.9375rem] leading-[1.7] text-[var(--ink-soft)]">
                 We do — birthdays, work socials, fundraisers, you name it. Reach out with your headcount, date,
                 and what you're picturing, and we'll let you know what's possible in the space and put together
                 a plan. The earlier you reach out, the more flexible we can be on timing.
@@ -1278,15 +798,18 @@
           </details>
 
           <details class="faq-item group">
-            <summary class="faq-summary">
+            <summary
+              class="faq-summary list-none cursor-pointer flex items-center justify-between gap-4 p-4 sm:px-5 sm:py-[1.15rem] font-display font-semibold text-[1.0625rem] text-[var(--ink)] hover:bg-[#e2572a]/5 transition-colors duration-300 [&::-webkit-details-marker]:hidden">
               <span>Do you offer catering?</span>
-              <svg class="faq-chevron" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+              <svg
+                class="faq-chevron shrink-0 text-[var(--ember-2)] transition-transform duration-350 ease-[cubic-bezier(0.16,1,0.3,1)] group-open:rotate-180"
+                width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"
+                stroke-linecap="round" stroke-linejoin="round">
                 <path d="M6 9l6 6 6-6" />
               </svg>
             </summary>
             <div class="faq-answer-wrap">
-              <div class="faq-answer">
+              <div class="faq-answer px-5 pb-[1.35rem] text-[0.9375rem] leading-[1.7] text-[var(--ink-soft)]">
                 Yes — comfort food off the grill travels well. Whether it's an office lunch or a full event, get
                 in touch with your group size and date and we'll put a menu together, including gluten-free,
                 plant-based, and allergy-friendly options. Head to the
@@ -1297,15 +820,18 @@
           </details>
 
           <details class="faq-item group">
-            <summary class="faq-summary">
+            <summary
+              class="faq-summary list-none cursor-pointer flex items-center justify-between gap-4 p-4 sm:px-5 sm:py-[1.15rem] font-display font-semibold text-[1.0625rem] text-[var(--ink)] hover:bg-[#e2572a]/5 transition-colors duration-300 [&::-webkit-details-marker]:hidden">
               <span>Can I order online for pickup or delivery?</span>
-              <svg class="faq-chevron" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+              <svg
+                class="faq-chevron shrink-0 text-[var(--ember-2)] transition-transform duration-350 ease-[cubic-bezier(0.16,1,0.3,1)] group-open:rotate-180"
+                width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"
+                stroke-linecap="round" stroke-linejoin="round">
                 <path d="M6 9l6 6 6-6" />
               </svg>
             </summary>
             <div class="faq-answer-wrap">
-              <div class="faq-answer">
+              <div class="faq-answer px-5 pb-[1.35rem] text-[0.9375rem] leading-[1.7] text-[var(--ink-soft)]">
                 Yep. You can order directly through the <span class="font-semibold text-[var(--ink)]">Order Now</span>
                 button for pickup, or find us on <span class="font-semibold text-[var(--ink)]">Uber Eats</span>
                 for delivery. Heads up that third-party delivery pricing is set by the platform, not us — dining
@@ -1315,15 +841,18 @@
           </details>
 
           <details class="faq-item group">
-            <summary class="faq-summary">
+            <summary
+              class="faq-summary list-none cursor-pointer flex items-center justify-between gap-4 p-4 sm:px-5 sm:py-[1.15rem] font-display font-semibold text-[1.0625rem] text-[var(--ink)] hover:bg-[#e2572a]/5 transition-colors duration-300 [&::-webkit-details-marker]:hidden">
               <span>Is there parking?</span>
-              <svg class="faq-chevron" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+              <svg
+                class="faq-chevron shrink-0 text-[var(--ember-2)] transition-transform duration-350 ease-[cubic-bezier(0.16,1,0.3,1)] group-open:rotate-180"
+                width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"
+                stroke-linecap="round" stroke-linejoin="round">
                 <path d="M6 9l6 6 6-6" />
               </svg>
             </summary>
             <div class="faq-answer-wrap">
-              <div class="faq-answer">
+              <div class="faq-answer px-5 pb-[1.35rem] text-[0.9375rem] leading-[1.7] text-[var(--ink-soft)]">
                 There's street parking along Robie St and the surrounding blocks near Cunard — metered during
                 the day, free in the evenings in most spots, but signage rules the day, so give it a glance.
                 If you're coming for a bigger group or an event, message us ahead of time and we can point you
@@ -1346,18 +875,19 @@
           <span class="w-6 h-px ember-gradient"></span>
         </span>
 
-        <div class="newsletter-panel relative overflow-hidden rounded-3xl px-5 pt-7 pb-7 sm:px-8 md:pt-8 md:pb-8">
+        <div
+          class="newsletter-panel relative overflow-hidden rounded-3xl px-5 pt-7 pb-7 sm:px-8 md:pt-8 md:pb-8 bg-[#eee8dc] border border-[#241d16]/[0.07]">
 
-          <!-- Fire logo background, lower opacity than the hero version -->
+          <!-- Fire logo background -->
           <img
             class="w-48 md:w-72 opacity-15 -z-0 absolute inset-0 m-auto max-w-full max-h-full pointer-events-none select-none"
             src="/assets/fire-logo-BUV1fzex.png" alt="" aria-hidden="true">
 
           <div class="relative z-10">
-            <h2 class="reveal font-display text-2xl md:text-3xl font-medium leading-[1.15]" style="color:var(--ink);">
+            <h2 class="reveal font-display text-2xl md:text-3xl font-medium leading-[1.15] text-[var(--ink)]">
               Get Some Bonfire in your inbox
             </h2>
-            <p class="reveal mt-3 text-sm leading-relaxed" style="color:var(--ink-soft);">
+            <p class="reveal mt-3 text-sm leading-relaxed text-[var(--ink-soft)]">
               Trivia night line-ups, new menu drops, and the occasional free app — no spam, just what's on the grill.
             </p>
 
@@ -1367,161 +897,153 @@
                   <label for="newsletter-email" class="sr-only">Email address</label>
                   <input id="newsletter-email" name="email" type="email" required placeholder="you@email.com"
                     autocomplete="email"
-                    class="newsletter-input sm:flex-1 px-4 opacity-60 py-2.5 rounded-full text-sm outline-none focus:border-[var(--ember-2)] transition" />
+                    class="newsletter-input sm:flex-1 px-4 opacity-60 py-2.5 rounded-full text-sm outline-none focus:border-[var(--ember-2)] bg-[#faf8f2] text-[var(--ink)] border border-[#241d16]/10" />
                   <button type="submit"
                     class="shrink-0 inline-flex items-center justify-center gap-2 px-5 py-2.5 rounded-full text-sm font-semibold text-white ember-gradient hover:brightness-105 transition">
                     Subscribe
                   </button>
                 </div>
 
-                <!-- CASL express-consent checkbox: unchecked by default, plain-language purpose, required to submit -->
-                <label class="mt-4 flex items-start gap-2.5 text-left text-[13px] leading-snug cursor-pointer"
-                  style="color:#8a8171;">
+                <label
+                  class="mt-4 flex items-start gap-2.5 text-left text-[13px] leading-snug cursor-pointer text-[#8a8171]">
                   <input id="newsletter-consent" name="consent" type="checkbox" required
                     class="mt-0.5 shrink-0 w-4 h-4 rounded accent-[var(--ember-2)]" />
                   Yes, send me trivia nights, menu drops, and updates from The Bonfire. I can unsubscribe anytime.
                 </label>
               </div>
             </form>
-            <p id="newsletter-msg" class="mt-3 text-sm" style="min-height:1.25rem;" aria-live="polite"></p>
+            <p id="newsletter-msg" class="mt-3 text-sm min-h-[1.25rem]" aria-live="polite"></p>
           </div>
 
         </div>
       </div>
     </section>
-
-    <!-- Footer -->
-    <footer class="relative pt-10 pb-6 px-8" style="background:#1a1510;">
-      <div class="container mx-auto">
-
-        <div class="flex flex-col md:flex-row md:flex-wrap md:justify-between gap-10 md:gap-8 pb-10"
-          style="border-bottom:1px solid rgba(255,255,255,.08);">
-
-          <!-- Brand -->
-          <div class="md:max-w-xs">
-            <a href="#" class="inline-flex items-center gap-2.5 mb-4">
-              <svg width="28" height="28" viewBox="0 0 24 24" fill="none" class="shrink-0">
-                <path
-                  d="M12 2c1.5 3 1.5 5-1 8 2 0 3.5-1 4-2 1 2 1 5-1 7-3 2.5-7 1.5-8.5-1.5-1.5-3 0-6 2-7-1 3 0 4 1.5 4.5-1-3 .5-6 3-8.9Z"
-                  fill="url(#footerFlame)" />
-                <defs>
-                  <linearGradient id="footerFlame" x1="4" y1="2" x2="18" y2="20" gradientUnits="userSpaceOnUse">
-                    <stop offset="0" stop-color="var(--ember-1)" />
-                    <stop offset=".55" stop-color="var(--ember-2)" />
-                    <stop offset="1" stop-color="var(--ember-3)" />
-                  </linearGradient>
-                </defs>
-              </svg>
-              <span class="font-display text-xl font-semibold tracking-tight" style="color:var(--cream);">THE
-                BONFIRE</span>
-            </a>
-            <p class="text-sm leading-relaxed" style="color:#8a8171;">
-              Kjipuktuk/Halifax's only tip-free, profit-sharing pub &amp; grill. Comfort food off the grill, done a
-              little different.
-            </p>
-
-            <!-- Social -->
-            <div class="flex items-center gap-3 mt-6">
-              <a href="https://www.instagram.com/bonfirehalifax/" aria-label="The Bonfire on Instagram"
-                class="w-9 h-9 rounded-full flex items-center justify-center transition hover:brightness-125"
-                style="background:#2a2118;">
-                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#c9c2b4" stroke-width="2">
-                  <rect x="3" y="3" width="18" height="18" rx="5" />
-                  <circle cx="12" cy="12" r="3.5" />
-                  <circle cx="17.5" cy="6.5" r="1" />
-                </svg>
-              </a>
-              <a href="#" aria-label="The Bonfire on Facebook"
-                class="w-9 h-9 rounded-full flex items-center justify-center transition hover:brightness-125"
-                style="background:#2a2118;">
-                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#c9c2b4" stroke-width="2">
-                  <path d="M14 9h3V6h-3c-2 0-3.5 1.5-3.5 3.5V12H8v3h2.5v6h3v-6H16l.5-3h-3V9.8c0-.5.3-.8.7-.8Z" />
-                </svg>
-              </a>
-              <a href="#" aria-label="The Bonfire on TikTok"
-                class="w-9 h-9 rounded-full flex items-center justify-center transition hover:brightness-125"
-                style="background:#2a2118;">
-                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#c9c2b4" stroke-width="2">
-                  <path d="M15 4v9.5a3.5 3.5 0 1 1-3-3.46" />
-                  <path d="M15 4c0 2.5 2 4.5 4 4.5" />
-                </svg>
-              </a>
-            </div>
-          </div>
-
-          <!-- Explore -->
-          <div class="w-fit">
-            <h4 class="text-xs font-semibold tracking-[0.2em] uppercase mb-4 whitespace-nowrap" style="color:#8a8171;">
-              Explore</h4>
-            <ul class="space-y-2.5 text-sm whitespace-nowrap" style="color:#c9c2b4;">
-              <li><a href="#" class="hover:text-white transition">Menu</a></li>
-              <li><a href="#" class="hover:text-white transition">Catering</a></li>
-              <li><a href="#" class="hover:text-white transition">Reservation &amp; Events</a></li>
-              <li><a href="#" class="hover:text-white transition">Location &amp; Hours</a></li>
-              <li><a href="#" class="hover:text-white transition">Blog</a></li>
-            </ul>
-          </div>
-
-          <!-- Company -->
-          <div class="w-fit">
-            <h4 class="text-xs font-semibold tracking-[0.2em] uppercase mb-4 whitespace-nowrap" style="color:#8a8171;">
-              The Bonfire</h4>
-            <ul class="space-y-2.5 text-sm whitespace-nowrap" style="color:#c9c2b4;">
-              <li><a href="#" class="hover:text-white transition">About Us</a></li>
-              <li><a href="#" class="hover:text-white transition">Contact Us</a></li>
-              <li><a href="#" class="hover:text-white transition">Careers</a></li>
-              <li><a href="#" class="hover:text-white transition">Gift Cards</a></li>
-            </ul>
-          </div>
-
-          <!-- Visit -->
-          <div class="w-fit">
-            <h4 class="text-xs font-semibold tracking-[0.2em] uppercase mb-4 whitespace-nowrap" style="color:#8a8171;">
-              Visit</h4>
-            <ul class="space-y-3 text-sm" style="color:#c9c2b4;">
-              <li class="flex gap-2.5 items-start">
-                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--ember-2)" stroke-width="2"
-                  class="shrink-0 mt-0.5">
-                  <path d="M12 21s-7-6.2-7-11a7 7 0 1 1 14 0c0 4.8-7 11-7 11Z" />
-                  <circle cx="12" cy="10" r="2.5" />
-                </svg>
-                <span class="whitespace-nowrap">2394 Robie St<br>Halifax, NS B3K 4M7</span>
-              </li>
-              <li class="flex gap-2.5 items-start">
-                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--ember-2)" stroke-width="2"
-                  class="shrink-0 mt-0.5">
-                  <path
-                    d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3 19.5 19.5 0 0 1-6-6 19.8 19.8 0 0 1-3-8.7A2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1 1 .3 2 .7 2.9a2 2 0 0 1-.4 2.1L8 10a16 16 0 0 0 6 6l1.3-1.4a2 2 0 0 1 2.1-.4c.9.4 1.9.6 2.9.7a2 2 0 0 1 1.7 2Z" />
-                </svg>
-                <span class="whitespace-nowrap">+1 902-474-3076</span>
-              </li>
-              <li class="flex gap-2.5 items-start">
-                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--ember-2)" stroke-width="2"
-                  class="shrink-0 mt-0.5">
-                  <circle cx="12" cy="12" r="9" />
-                  <path d="M12 7v5l3.5 2" />
-                </svg>
-                <span class="whitespace-nowrap">Sun–Tue: 4–9pm<br>Wed–Sat: 4–11pm</span>
-              </li>
-            </ul>
-          </div>
-        </div>
-
-        <!-- Bottom bar -->
-        <div class="pt-5 flex flex-col sm:flex-row items-center justify-between gap-3">
-          <p class="text-xs" style="color:#6b6153;">
-            © <span id="footer-year">2026</span> The Bonfire. All rights reserved.
-          </p>
-          <div class="flex items-center gap-5 text-xs" style="color:#6b6153;">
-            <a href="#" class="hover:text-[var(--cream)] transition">Privacy Policy</a>
-            <a href="#" class="hover:text-[var(--cream)] transition">Terms of Service</a>
-          </div>
-        </div>
-
-      </div>
-    </footer>
   </main>
+  <!-- Footer -->
+  <footer class="relative pt-10 pb-6 px-8 bg-[#1a1510]">
+    <div class="container mx-auto max-w-[1250px]">
 
+      <div
+        class="flex flex-col md:flex-row md:flex-wrap md:justify-between gap-10 md:gap-8 pb-10 border-b border-white/8">
+
+        <!-- Brand -->
+        <div class="md:max-w-xs">
+          <a href="#" class="inline-flex items-center gap-2.5 mb-4">
+            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" class="shrink-0">
+              <path
+                d="M12 2c1.5 3 1.5 5-1 8 2 0 3.5-1 4-2 1 2 1 5-1 7-3 2.5-7 1.5-8.5-1.5-1.5-3 0-6 2-7-1 3 0 4 1.5 4.5-1-3 .5-6 3-8.9Z"
+                fill="url(#footerFlame)" />
+              <defs>
+                <linearGradient id="footerFlame" x1="4" y1="2" x2="18" y2="20" gradientUnits="userSpaceOnUse">
+                  <stop offset="0" stop-color="var(--ember-1)" />
+                  <stop offset=".55" stop-color="var(--ember-2)" />
+                  <stop offset="1" stop-color="var(--ember-3)" />
+                </linearGradient>
+              </defs>
+            </svg>
+            <span class="font-display text-xl font-semibold tracking-tight text-[var(--cream)]">THE BONFIRE</span>
+          </a>
+          <p class="text-sm leading-relaxed text-[#8a8171]">
+            Kjipuktuk/Halifax's only tip-free, profit-sharing pub &amp; grill. Comfort food off the grill, done a
+            little different.
+          </p>
+
+          <!-- Social -->
+          <div class="flex items-center gap-3 mt-6">
+            <a href="https://www.instagram.com/bonfirehalifax/" aria-label="The Bonfire on Instagram"
+              class="w-9 h-9 rounded-full flex items-center justify-center transition hover:brightness-125 bg-[#2a2118]">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#c9c2b4" stroke-width="2">
+                <rect x="3" y="3" width="18" height="18" rx="5" />
+                <circle cx="12" cy="12" r="3.5" />
+                <circle cx="17.5" cy="6.5" r="1" />
+              </svg>
+            </a>
+            <a href="#" aria-label="The Bonfire on Facebook"
+              class="w-9 h-9 rounded-full flex items-center justify-center transition hover:brightness-125 bg-[#2a2118]">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#c9c2b4" stroke-width="2">
+                <path d="M14 9h3V6h-3c-2 0-3.5 1.5-3.5 3.5V12H8v3h2.5v6h3v-6H16l.5-3h-3V9.8c0-.5.3-.8.7-.8Z" />
+              </svg>
+            </a>
+            <a href="#" aria-label="The Bonfire on TikTok"
+              class="w-9 h-9 rounded-full flex items-center justify-center transition hover:brightness-125 bg-[#2a2118]">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#c9c2b4" stroke-width="2">
+                <path d="M15 4v9.5a3.5 3.5 0 1 1-3-3.46" />
+                <path d="M15 4c0 2.5 2 4.5 4 4.5" />
+              </svg>
+            </a>
+          </div>
+        </div>
+
+        <!-- Explore -->
+        <div class="w-fit">
+          <h4 class="text-xs font-semibold tracking-[0.2em] uppercase mb-4 whitespace-nowrap text-[#8a8171]">Explore
+          </h4>
+          <ul class="space-y-2.5 text-sm whitespace-nowrap text-[#c9c2b4]">
+            <li><a href="#" class="hover:text-white transition">Menu</a></li>
+            <li><a href="#" class="hover:text-white transition">Catering</a></li>
+            <li><a href="#" class="hover:text-white transition">Reservation &amp; Events</a></li>
+            <li><a href="#" class="hover:text-white transition">Blog</a></li>
+          </ul>
+        </div>
+
+        <!-- Company -->
+        <div class="w-fit">
+          <h4 class="text-xs font-semibold tracking-[0.2em] uppercase mb-4 whitespace-nowrap text-[#8a8171]">The
+            Bonfire</h4>
+          <ul class="space-y-2.5 text-sm whitespace-nowrap text-[#c9c2b4]">
+            <li><a href="#" class="hover:text-white transition">About Us</a></li>
+            <li><a href="#" class="hover:text-white transition">Contact Us</a></li>
+            <li><a href="#" class="hover:text-white transition">Careers</a></li>
+            <li><a href="#" class="hover:text-white transition">Gift Cards</a></li>
+          </ul>
+        </div>
+
+        <!-- Visit -->
+        <div class="w-fit">
+          <h4 class="text-xs font-semibold tracking-[0.2em] uppercase mb-4 whitespace-nowrap text-[#8a8171]">Visit
+          </h4>
+          <ul class="space-y-3 text-sm text-[#c9c2b4]">
+            <li class="flex gap-2.5 items-start">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--ember-2)" stroke-width="2"
+                class="shrink-0 mt-0.5">
+                <path d="M12 21s-7-6.2-7-11a7 7 0 1 1 14 0c0 4.8-7 11-7 11Z" />
+                <circle cx="12" cy="10" r="2.5" />
+              </svg>
+              <span class="whitespace-nowrap">2394 Robie St<br>Halifax, NS B3K 4M7</span>
+            </li>
+            <li class="flex gap-2.5 items-start">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--ember-2)" stroke-width="2"
+                class="shrink-0 mt-0.5">
+                <path
+                  d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3 19.5 19.5 0 0 1-6-6 19.8 19.8 0 0 1-3-8.7A2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1 1 .3 2 .7 2.9a2 2 0 0 1-.4 2.1L8 10a16 16 0 0 0 6 6l1.3-1.4a2 2 0 0 1 2.1-.4c.9.4 1.9.6 2.9.7a2 2 0 0 1 1.7 2Z" />
+              </svg>
+              <span class="whitespace-nowrap">+1 902-474-3076</span>
+            </li>
+            <li class="flex gap-2.5 items-start">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--ember-2)" stroke-width="2"
+                class="shrink-0 mt-0.5">
+                <circle cx="12" cy="12" r="9" />
+                <path d="M12 7v5l3.5 2" />
+              </svg>
+              <span class="whitespace-nowrap">Sun–Tue: 4–9pm<br>Wed–Sat: 4–11pm</span>
+            </li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- Bottom bar -->
+      <div class="pt-5 flex flex-col sm:flex-row items-center justify-between gap-3">
+        <p class="text-xs text-[#6b6153]">
+          © <span id="footer-year">2026</span> The Bonfire. All rights reserved.
+        </p>
+        <div class="flex items-center gap-5 text-xs text-[#6b6153]">
+          <a href="#" class="hover:text-[var(--cream)] transition">Privacy Policy</a>
+          <a href="#" class="hover:text-[var(--cream)] transition">Terms of Service</a>
+        </div>
+      </div>
+
+    </div>
+  </footer>
 </body>
 
 </html>

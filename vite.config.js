@@ -18,7 +18,6 @@ export default defineConfig({
                 events: resolve(__dirname, 'events.html'),
                 catering: resolve(__dirname, 'catering.html'),
                 blog: resolve(__dirname, 'blog.html'),
-                location: resolve(__dirname, 'location.html'),
             },
         },
     },
