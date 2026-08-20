@@ -1,0 +1,365 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href="/src/style.css" rel="stylesheet">
+  <title>The Bonfire Menu</title>
+</head>
+
+<body class="min-h-screen flex flex-col container mx-auto px-4">
+
+  <header>
+    <nav class="w-full py-2">
+      <div class="flex justify-between items-center flex-wrap gap-y-3">
+
+        <div class="hidden md:flex md:flex-col gap-1 flex-1 text-sm">
+          <p class="flex items-center gap-1">
+            <img id="hours-icon" src="src/assets/icons/schedule.svg" class="w-4" alt="Hours icon" />
+            <span class="font-bold">Today's Hours</span>: From 3 PM to 11:00 PM
+          </p>
+          <p class="flex items-center gap-1">
+            <img id="location-icon" src="src/assets/icons/location.svg" class="w-4" alt="Location icon" />
+            2394 Robie St, Halifax, NS B3K 4M7, Canada
+          </p>
+          <a class="flex items-center gap-1" href="tel:+19024743076">
+            <img id="call-icon" src="src/assets/icons/call.svg" class="w-4" alt="Call icon" />
+            +1 902-474-3076
+          </a>
+        </div>
+
+        <div class="mx-auto md:mx-0">
+          <a href="/">
+            <img id="logo" src="src/assets/logo/the-bonefire-logo.avif" class="w-40 md:w-70"
+              alt="The Bonefire Restaurant Logo" />
+          </a>
+        </div>
+
+
+        <div class="hidden md:flex gap-x-2 flex-1 justify-end items-center">
+          <button
+            class="relative inline-flex px-10 py-2 text-lg border-2 border-[#3F2A1D] hover:border-red-700 [clip-path:polygon(10%_0%,_100%_0%,_100%_90%,_90%_100%,_0%_100%,_0%_10%)]">
+            <span
+              class="absolute inset-0 bg-[#31272a] hover:bg-[#30161e] [clip-path:polygon(10%_0%,_100%_0%,_100%_90%,_90%_100%,_0%_100%,_0%_10%)]"></span>
+            <span class="relative z-10 text-[#f6c798]">
+              ORDER NOW
+            </span>
+          </button>
+        </div>
+
+        <button id="menu-toggle" class="md:hidden p-2" aria-label="Toggle menu" aria-expanded="false">
+          <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+          </svg>
+        </button>
+      </div>
+
+      <ul id="nav-links"
+        class="hidden md:flex flex-col md:flex-row md:items-center gap-x-7 gap-y-2 mt-4 md:mt-8 text-[#3F2A1D] justify-center">
+        <li><a href="/index" data-path="/index" class="nav-link hover:text-[#a75624] px-2 py-1 transition">HOME</a></li>
+        <li><a href="/menu" data-path="/menu" class="nav-link hover:text-[#a75624] px-2 py-1 transition">MENU</a></li>
+        <li><a href="/catering" data-path="/catering"
+            class="nav-link hover:text-[#a75624] px-2 py-1 transition">CATERING</a></li>
+        <li><a href="/events" data-path="/reservation"
+            class="nav-link hover:text-[#a75624] px-2 py-1 transition">RESERVATION & EVENTS</a></li>
+        <li><a href="/location" data-path="/location"
+            class="nav-link hover:text-[#a75624] px-2 py-1 transition">LOCATION & HOURS</a></li>
+        <li><a href="/about" data-path="/about" class="nav-link hover:text-[#a75624] px-2 py-1 transition">ABOUT US</a>
+        </li>
+        <li><a href="/contact" data-path="/contact" class="nav-link hover:text-[#a75624] px-2 py-1 transition">CONTACT
+            US</a></li>
+        <li><a href="/blog" data-path="/blog" class="nav-link hover:text-[#a75624] px-2 py-1 transition">BLOG</a></li>
+        <li class="md:hidden pt-2">
+          <a href="/order"
+            class="block text-center bg-[#a75624] hover:bg-[#8a4519] text-white text-sm font-bold px-5 py-2 rounded transition">
+            ORDER NOW
+          </a>
+        </li>
+      </ul>
+    </nav>
+  </header>
+
+  <main>
+    <div id="menu-widget" class="max-w-[1180px] w-full mx-auto mt-15 flex flex-col gap-4">
+      <div class="menu-layout flex gap-4 h-[460px]">
+
+        <!-- VERTICAL CATEGORY NAV -->
+        <nav
+          class="vertical-nav shrink-0 w-full md:w-36 flex flex-col items-stretch justify-start rounded-xl bg-white shadow-sm overflow-hidden"
+          aria-label="Menu categories">
+          <button data-filter="all"
+            class="nav-btn w-full text-center px-4 py-4 uppercase tracking-widest text-sm font-bold transition-all duration-200 text-gray-900 bg-gray-100">All</button>
+          <button data-filter="burgers"
+            class="nav-btn w-full text-center px-4 py-4 uppercase tracking-widest text-sm font-bold transition-all duration-200 text-gray-500 hover:text-gray-900 hover:bg-gray-50">Burgers</button>
+          <button data-filter="salads"
+            class="nav-btn w-full text-center px-4 py-4 uppercase tracking-widest text-sm font-bold transition-all duration-200 text-gray-500 hover:text-gray-900 hover:bg-gray-50">Salads</button>
+          <button data-filter="pizzas"
+            class="nav-btn w-full text-center px-4 py-4 uppercase tracking-widest text-sm font-bold transition-all duration-200 text-gray-500 hover:text-gray-900 hover:bg-gray-50">Pizzas</button>
+        </nav>
+
+        <!-- LEFT SIDE -->
+        <aside id="left-column" class="flex-1 min-w-0 flex flex-col gap-2.5 h-full max-w-[430px]">
+          <div id="thumbnail-list"
+            class="flex-1 overflow-y-auto custom-scrollbar flex flex-col gap-2.5 pr-2 pb-1 drag-scroll">
+            <!-- Burger 1 -->
+            <div
+              class="thumbnail-item shrink-0 flex relative items-center p-2.5 gap-3 rounded-lg cursor-pointer transition-colors duration-200 overflow-hidden bg-gray-100 border border-gray-200 shadow-sm"
+              data-category="burgers" data-index="0">
+              <div class="w-20 h-[74px] shrink-0 overflow-hidden rounded-md bg-gray-200 pointer-events-none">
+                <img draggable="false"
+                  src="https://images.unsplash.com/photo-1568901346375-23c9450c58cd?auto=format&fit=crop&w=300&q=80"
+                  alt="Smash Burger"
+                  class="thumb-img w-full h-full object-cover scale-110 transition-transform duration-300 ease-out" />
+              </div>
+              <div class="flex-1 flex flex-col min-w-0 py-0.5">
+                <div class="flex justify-between items-start gap-2 mb-0.5">
+                  <h3 class="text-gray-900 font-bold text-lg truncate">Classic Smash Burger</h3>
+                  <span class="text-emerald-600 font-black text-base">$14.99</span>
+                </div>
+                <p class="text-gray-500 text-sm truncate mb-1.5 pointer-events-none">Double beef patty,
+                  american cheese, and house sauce on a toasted brioche bun.</p>
+                <div class="flex flex-wrap gap-1 mt-auto">
+                  <span
+                    class="text-xs font-bold tracking-wider text-gray-500 bg-gray-200 px-1.5 py-0.5 rounded uppercase pointer-events-none">GFO</span>
+                  <span
+                    class="text-xs font-bold tracking-wider text-blue-600 bg-blue-50 px-1.5 py-0.5 rounded uppercase pointer-events-none">NEW</span>
+                </div>
+              </div>
+              <div class="progress-indicator absolute bottom-0 left-0 h-[3px] bg-gray-900 w-0 progress-bar">
+              </div>
+            </div>
+
+            <!-- Burger 2 -->
+            <div
+              class="thumbnail-item shrink-0 flex relative items-center p-2.5 gap-3 rounded-lg cursor-pointer transition-colors duration-200 overflow-hidden bg-white border border-gray-200 hover:bg-gray-50"
+              data-category="burgers" data-index="1">
+              <div class="w-20 h-[74px] shrink-0 overflow-hidden rounded-md bg-gray-200 pointer-events-none">
+                <img draggable="false"
+                  src="https://images.unsplash.com/photo-1520072959219-c595dc870360?auto=format&fit=crop&w=300&q=80"
+                  alt="Vegan Burger"
+                  class="thumb-img w-full h-full object-cover transition-transform duration-300 ease-out" />
+              </div>
+              <div class="flex-1 flex flex-col min-w-0 py-0.5">
+                <div class="flex justify-between items-start gap-2 mb-0.5">
+                  <h3 class="text-gray-900 font-bold text-lg truncate">Spicy Vegan Black Bean</h3>
+                  <span class="text-emerald-600 font-black text-base">$12.99</span>
+                </div>
+                <p class="text-gray-500 text-sm truncate mb-1.5 pointer-events-none">House-made black bean
+                  patty, fresh avocado, jalapeños, and spicy vegan mayo.</p>
+                <div class="flex flex-wrap gap-1 mt-auto">
+                  <span
+                    class="text-xs font-bold tracking-wider text-gray-500 bg-gray-200 px-1.5 py-0.5 rounded uppercase pointer-events-none">V</span>
+                  <span
+                    class="text-xs font-bold tracking-wider text-red-600 bg-red-50 px-1.5 py-0.5 rounded uppercase pointer-events-none">SPICY</span>
+                </div>
+              </div>
+              <div class="progress-indicator absolute bottom-0 left-0 h-[3px] bg-gray-900 w-0"></div>
+            </div>
+
+            <!-- Burger 3 -->
+            <div
+              class="thumbnail-item shrink-0 flex relative items-center p-2.5 gap-3 rounded-lg cursor-pointer transition-colors duration-200 overflow-hidden bg-white border border-gray-200 hover:bg-gray-50"
+              data-category="burgers" data-index="2">
+              <div class="w-20 h-[74px] shrink-0 overflow-hidden rounded-md bg-gray-200 pointer-events-none">
+                <img draggable="false"
+                  src="https://images.unsplash.com/photo-1586816001966-79b736744398?auto=format&fit=crop&w=300&q=80"
+                  alt="Mushroom Burger"
+                  class="thumb-img w-full h-full object-cover transition-transform duration-300 ease-out" />
+              </div>
+              <div class="flex-1 flex flex-col min-w-0 py-0.5">
+                <div class="flex justify-between items-start gap-2 mb-0.5">
+                  <h3 class="text-gray-900 font-bold text-lg truncate">Truffle Mushroom Swiss</h3>
+                  <span class="text-emerald-600 font-black text-base">$15.99</span>
+                </div>
+                <p class="text-gray-500 text-sm truncate mb-1.5 pointer-events-none">A hearty portobello
+                  mushroom cap loaded with melted swiss cheese and truffle aioli.</p>
+                <div class="flex flex-wrap gap-1 mt-auto">
+                  <span
+                    class="text-xs font-bold tracking-wider text-gray-500 bg-gray-200 px-1.5 py-0.5 rounded uppercase pointer-events-none">VG</span>
+                </div>
+              </div>
+              <div class="progress-indicator absolute bottom-0 left-0 h-[3px] bg-gray-900 w-0"></div>
+            </div>
+
+            <!-- Salad 1 -->
+            <div
+              class="thumbnail-item shrink-0 flex relative items-center p-2.5 gap-3 rounded-lg cursor-pointer transition-colors duration-200 overflow-hidden bg-white border border-gray-200 hover:bg-gray-50"
+              data-category="salads" data-index="3">
+              <div class="w-20 h-[74px] shrink-0 overflow-hidden rounded-md bg-gray-200 pointer-events-none">
+                <img draggable="false"
+                  src="https://images.unsplash.com/photo-1512621776951-a57141f2eefd?auto=format&fit=crop&w=300&q=80"
+                  alt="Quinoa Salad"
+                  class="thumb-img w-full h-full object-cover transition-transform duration-300 ease-out" />
+              </div>
+              <div class="flex-1 flex flex-col min-w-0 py-0.5">
+                <div class="flex justify-between items-start gap-2 mb-0.5">
+                  <h3 class="text-gray-900 font-bold text-lg truncate">Mediterranean Quinoa</h3>
+                  <span class="text-emerald-600 font-black text-base">$11.99</span>
+                </div>
+                <p class="text-gray-500 text-sm truncate mb-1.5 pointer-events-none">Fresh quinoa, cherry
+                  tomatoes, diced cucumber, feta block, and lemon vinaigrette.</p>
+                <div class="flex flex-wrap gap-1 mt-auto">
+                  <span
+                    class="text-xs font-bold tracking-wider text-gray-500 bg-gray-200 px-1.5 py-0.5 rounded uppercase pointer-events-none">GF</span>
+                </div>
+              </div>
+              <div class="progress-indicator absolute bottom-0 left-0 h-[3px] bg-gray-900 w-0"></div>
+            </div>
+
+            <!-- Pizza 1 -->
+            <div
+              class="thumbnail-item shrink-0 flex relative items-center p-2.5 gap-3 rounded-lg cursor-pointer transition-colors duration-200 overflow-hidden bg-white border border-gray-200 hover:bg-gray-50"
+              data-category="pizzas" data-index="4">
+              <div class="w-20 h-[74px] shrink-0 overflow-hidden rounded-md bg-gray-200 pointer-events-none">
+                <img draggable="false"
+                  src="https://images.unsplash.com/photo-1604382354936-07c5d9983bd3?auto=format&fit=crop&w=300&q=80"
+                  alt="Margherita"
+                  class="thumb-img w-full h-full object-cover transition-transform duration-300 ease-out" />
+              </div>
+              <div class="flex-1 flex flex-col min-w-0 py-0.5">
+                <div class="flex justify-between items-start gap-2 mb-0.5">
+                  <h3 class="text-gray-900 font-bold text-lg truncate">Wood-Fired Margherita</h3>
+                  <span class="text-emerald-600 font-black text-base">$16.99</span>
+                </div>
+                <p class="text-gray-500 text-sm truncate mb-1.5 pointer-events-none">San Marzano tomato
+                  sauce, fresh mozzarella, and torn basil leaves on sourdough.</p>
+                <div class="flex flex-wrap gap-1 mt-auto">
+                  <span
+                    class="text-xs font-bold tracking-wider text-gray-500 bg-gray-200 px-1.5 py-0.5 rounded uppercase pointer-events-none">VG</span>
+                </div>
+              </div>
+              <div class="progress-indicator absolute bottom-0 left-0 h-[3px] bg-gray-900 w-0"></div>
+            </div>
+          </div>
+
+          <!-- FIXED CONTROLS AREA (Grouped center with next/prev adjacent to play/pause) -->
+          <div class="shrink-0 h-[52px] flex items-center justify-center gap-5 rounded-lg bg-white px-5 shadow-sm">
+            <button id="btn-prev" class="text-gray-400 hover:text-gray-800 transition-colors duration-200 p-1">
+              <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
+                <path d="M15.41 7.41L14 6l-6 6 6 6 1.41-1.41L10.83 12z" />
+              </svg>
+            </button>
+            <button id="btn-play-pause"
+              class="text-white bg-gray-900 hover:bg-gray-700 p-2 rounded-full transition-colors duration-200 shadow-sm"></button>
+            <button id="btn-next" class="text-gray-400 hover:text-gray-800 transition-colors duration-200 p-1">
+              <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
+                <path d="M10 6L8.59 7.41 13.17 12l-4.58 4.59L10 18l6-6z" />
+              </svg>
+            </button>
+          </div>
+        </aside>
+
+        <!-- RIGHT SIDE -->
+        <section id="right-column"
+          class="flex-[1.5] min-w-0 h-full bg-white rounded-xl border border-gray-200 overflow-hidden shadow-sm relative group flex flex-col">
+          <div id="intro-overlay"
+            class="absolute inset-0 z-50 bg-white flex items-center justify-center transition-opacity duration-500 pointer-events-none">
+            <video id="intro-video" class="w-full h-full object-cover" autoplay muted playsinline>
+              <source src="src/assets/videos/thebonfire.mp4" type="video/mp4">
+            </video>
+          </div>
+
+          <div class="flex-1 min-h-0 relative">
+            <!-- Slide 0 -->
+            <div class="main-slide flex h-full w-full flex-col fade-in" data-index="0">
+              <div class="h-[62%] w-full overflow-hidden bg-gray-100 relative">
+                <img src="https://images.unsplash.com/photo-1568901346375-23c9450c58cd?auto=format&fit=crop&w=1200&q=80"
+                  alt="Smash Burger" class="w-full h-full object-cover" />
+              </div>
+              <div class="flex-1 px-6 pb-3 flex flex-col justify-center bg-white z-10 -mt-6">
+                <div class="flex justify-between items-end gap-4 mb-2">
+                  <h2 class="text-3xl font-bold text-gray-900 tracking-tight">Classic Smash Burger</h2>
+                  <span class="text-2xl font-black text-emerald-600">$14.99</span>
+                </div>
+                <p class="text-gray-500 text-sm leading-relaxed max-w-2xl">Double beef patty, american
+                  cheese, and house sauce on a toasted brioche bun.</p>
+              </div>
+            </div>
+            <!-- Slide 1 -->
+            <div class="main-slide hidden h-full w-full flex-col" data-index="1">
+              <div class="h-[62%] w-full overflow-hidden bg-gray-100 relative">
+                <img src="https://images.unsplash.com/photo-1520072959219-c595dc870360?auto=format&fit=crop&w=1200&q=80"
+                  alt="Vegan Burger" class="w-full h-full object-cover" />
+              </div>
+              <div class="flex-1 px-6 pb-3 flex flex-col justify-center bg-white z-10 -mt-6">
+                <div class="flex justify-between items-end gap-4 mb-2">
+                  <h2 class="text-3xl font-bold text-gray-900 tracking-tight">Spicy Vegan Black Bean</h2>
+                  <span class="text-2xl font-black text-emerald-600">$12.99</span>
+                </div>
+                <p class="text-gray-500 text-sm leading-relaxed max-w-2xl">House-made black bean patty,
+                  fresh avocado, jalapeños, and spicy vegan mayo.</p>
+              </div>
+            </div>
+            <!-- Slide 2 -->
+            <div class="main-slide hidden h-full w-full flex-col" data-index="2">
+              <div class="h-[62%] w-full overflow-hidden bg-gray-100 relative">
+                <img src="https://images.unsplash.com/photo-1586816001966-79b736744398?auto=format&fit=crop&w=1200&q=80"
+                  alt="Mushroom Burger" class="w-full h-full object-cover" />
+              </div>
+              <div class="flex-1 px-6 pb-3 flex flex-col justify-center bg-white z-10 -mt-6">
+                <div class="flex justify-between items-end gap-4 mb-2">
+                  <h2 class="text-3xl font-bold text-gray-900 tracking-tight">Truffle Mushroom Swiss</h2>
+                  <span class="text-2xl font-black text-emerald-600">$15.99</span>
+                </div>
+                <p class="text-gray-500 text-sm leading-relaxed max-w-2xl">A hearty portobello mushroom cap
+                  loaded with melted swiss cheese and truffle aioli.</p>
+              </div>
+            </div>
+            <!-- Slide 3 -->
+            <div class="main-slide hidden h-full w-full flex-col" data-index="3">
+              <div class="h-[62%] w-full overflow-hidden bg-gray-100 relative">
+                <img src="https://images.unsplash.com/photo-1512621776951-a57141f2eefd?auto=format&fit=crop&w=1200&q=80"
+                  alt="Quinoa Salad" class="w-full h-full object-cover" />
+              </div>
+              <div class="flex-1 px-6 pb-3 flex flex-col justify-center bg-white z-10 -mt-6">
+                <div class="flex justify-between items-end gap-4 mb-2">
+                  <h2 class="text-3xl font-bold text-gray-900 tracking-tight">Mediterranean Quinoa</h2>
+                  <span class="text-2xl font-black text-emerald-600">$11.99</span>
+                </div>
+                <p class="text-gray-500 text-sm leading-relaxed max-w-2xl">Fresh quinoa, cherry tomatoes,
+                  diced cucumber, feta block, and a zesty lemon vinaigrette.</p>
+              </div>
+            </div>
+            <!-- Slide 4 -->
+            <div class="main-slide hidden h-full w-full flex-col" data-index="4">
+              <div class="h-[62%] w-full overflow-hidden bg-gray-100 relative">
+                <img src="https://images.unsplash.com/photo-1604382354936-07c5d9983bd3?auto=format&fit=crop&w=1200&q=80"
+                  alt="Margherita" class="w-full h-full object-cover" />
+              </div>
+              <div class="flex-1 px-6 pb-3 flex flex-col justify-center bg-white z-10 -mt-6">
+                <div class="flex justify-between items-end gap-4 mb-2">
+                  <h2 class="text-3xl font-bold text-gray-900 tracking-tight">Wood-Fired Margherita</h2>
+                  <span class="text-2xl font-black text-emerald-600">$16.99</span>
+                </div>
+                <p class="text-gray-500 text-sm leading-relaxed max-w-2xl">San Marzano tomato sauce, fresh
+                  mozzarella, and torn basil leaves on a sourdough crust.</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="shrink-0 px-4 pb-4 pt-1 bg-white z-10 text-center">
+            <button
+              class="relative mx-auto inline-flex px-10 py-2 text-lg transition-all duration-390 border-2 border-[#3F2A1D] hover:border-red-700 [clip-path:polygon(10%_0%,_100%_0%,_100%_90%,_90%_100%,_0%_100%,_0%_10%)]">
+              <span
+                class="absolute inset-0 bg-[#31272a] hover:bg-[#30161e] transition-transform duration-300  [clip-path:polygon(10%_0%,_100%_0%,_100%_90%,_90%_100%,_0%_100%,_0%_10%)]"></span>
+              <span class="relative z-10 text-[#f6c798]">
+                START ORDER
+              </span>
+            </button>
+          </div>
+        </section>
+      </div>
+    </div>
+  </main>
+
+  <footer class="mt-auto py-4 text-center text-gray-500 text-xs">
+    <p>
+      &copy;
+      <script>document.write(new Date().getFullYear())</script> The Bonfire. All rights reserved.
+    </p>
+  </footer>
+  <script type="module" src="/src/menu.js"></script>
+</body>
+
+</html>

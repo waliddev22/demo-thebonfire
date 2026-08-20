@@ -1,0 +1,146 @@
+@import "tailwindcss";
+
+body {
+  background-color: #eef1e6;
+}
+
+.container {
+  max-width: 1250px;
+}
+
+/* menu */
+.custom-scrollbar::-webkit-scrollbar {
+  width: 6px;
+}
+
+.custom-scrollbar::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb {
+  background: #d4d4d8;
+  border-radius: 10px;
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb:hover {
+  background: #a1a1aa;
+}
+
+.drag-scroll {
+  cursor: grab;
+  user-select: none;
+}
+
+.drag-scroll:active {
+  cursor: grabbing;
+}
+
+.progress-bar {
+  animation: progress 5s linear forwards;
+}
+
+.paused-animation {
+  animation-play-state: paused !important;
+}
+
+@keyframes progress {
+  0% {
+    width: 0%;
+  }
+
+  100% {
+    width: 100%;
+  }
+}
+
+.fade-in {
+  animation: fadeIn 0.4s ease-in-out forwards;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: scale(0.98);
+  }
+
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+/* Nav button border flash fix */
+.nav-btn {
+  border: none !important;
+  outline: none !important;
+  box-shadow: none !important;
+}
+
+.thumbnail-item {
+  box-sizing: border-box;
+  border-width: 1px;
+  border-style: solid;
+  border-color: #e5e7eb;
+  will-change: background-color, box-shadow;
+}
+
+.thumbnail-item.is-active {
+  background: #f3f4f6;
+  border-color: #d1d5db;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+}
+
+.main-slide img {
+  transform: translateZ(0);
+  backface-visibility: hidden;
+}
+
+@media (max-width: 900px) {
+  .menu-layout {
+    flex-direction: column;
+    height: auto;
+  }
+
+  .vertical-nav {
+    flex-direction: row;
+    overflow-x: auto;
+  }
+
+  #left-column,
+  #right-column {
+    width: 100%;
+  }
+
+  #thumbnail-list {
+    max-height: 440px;
+  }
+}
+
+/* menu end */
+
+/* faq */
+.faq-summary {
+  cursor: pointer;
+  list-style: none;
+}
+
+.faq-summary::-webkit-details-marker {
+  display: none;
+}
+
+.faq-chevron {
+  transition: transform 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.faq-item[open] .faq-chevron {
+  transform: rotate(180deg);
+}
+
+/* Height is set directly via JS (0 -> scrollHeight px -> 0), not fr units */
+.faq-answer-wrap {
+  height: 0;
+  overflow: hidden;
+  transition: height 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* faq end */
