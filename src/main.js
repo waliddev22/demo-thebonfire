@@ -2,107 +2,36 @@ const $ = (selector, root = document) => root.querySelector(selector);
 const $$ = (selector, root = document) => [...root.querySelectorAll(selector)];
 
 document.addEventListener("DOMContentLoaded", () => {
+    /* DOM ELEMENTS */
+    const header = $("#site-header");
+    const logo = $("#logo");
 
-    /* =========================================================
-       ELEMENTS
-       ========================================================= */
-    const header = document.getElementById("site-header");
-    const topBar = document.getElementById("top-bar");
-    const logo = document.getElementById("logo");
-
-    const mobileMenu = document.getElementById("mobile-menu");
-    const menuToggle = document.getElementById("mobile-menu-toggle");
-    const bottomMenuToggle = document.getElementById("mobile-bottom-menu");
-
-    const languageToggle = document.getElementById("language-toggle");
-    const languageMenu = document.getElementById("language-menu");
-    const languageArrow = document.getElementById("language-arrow");
-    const currentLanguage = document.getElementById("current-language");
-    const languageOptions = document.querySelectorAll(".language-option");
+    const mobileMenu = $("#mobile-menu");
+    const menuToggle = $("#mobile-menu-toggle");
+    const bottomMenuToggle = $("#mobile-bottom-menu");
 
     let lastScrollY = window.scrollY;
     let ticking = false;
 
-
-    /* =========================================================
-       LANGUAGE DROPDOWN
-       ========================================================= */
-    function closeLanguageMenu() {
-        languageMenu.classList.add("hidden");
-        languageToggle.setAttribute("aria-expanded", "false");
-        languageArrow.classList.remove("rotate-180");
-    }
-
-
-    languageToggle.addEventListener("click", (event) => {
-        event.stopPropagation();
-
-        const isOpen = !languageMenu.classList.contains("hidden");
-
-        if (isOpen) {
-            closeLanguageMenu();
-        } else {
-            languageMenu.classList.remove("hidden");
-            languageToggle.setAttribute("aria-expanded", "true");
-            languageArrow.classList.add("rotate-180");
-        }
-    });
-
-
-    languageOptions.forEach(option => {
-        option.addEventListener("click", () => {
-            currentLanguage.textContent = option.dataset.language;
-            closeLanguageMenu();
-
-            /*
-             * Add actual language switching here if needed.
-             *
-             * Example:
-             * window.location.href = "/fr";
-             */
-        });
-    });
-
-
-    document.addEventListener("click", (event) => {
-        if (!languageToggle.parentElement.contains(event.target)) {
-            closeLanguageMenu();
-        }
-    });
-
-
-    /* =========================================================
-       MOBILE MENU POSITION
-       ========================================================= */
+    /* MOBILE MENU POSITION */
     function updateMobileMenuPosition() {
-        if (window.innerWidth >= 768) return;
-
+        if (window.innerWidth >= 768 || !mobileMenu || !header) return;
         const headerBottom = header.getBoundingClientRect().bottom;
-
         mobileMenu.style.top = `${Math.max(headerBottom, 0)}px`;
     }
 
-
-    /* =========================================================
-       MOBILE MENU
-       ========================================================= */
+    /* MOBILE MENU TOGGLE */
     function openMobileMenu() {
         updateMobileMenuPosition();
-
         mobileMenu.classList.remove("hidden");
-        menuToggle.setAttribute("aria-expanded", "true");
-
-        requestAnimationFrame(() => {
-            updateMobileMenuPosition();
-        });
+        menuToggle?.setAttribute("aria-expanded", "true");
+        requestAnimationFrame(updateMobileMenuPosition);
     }
-
 
     function closeMobileMenu() {
-        mobileMenu.classList.add("hidden");
-        menuToggle.setAttribute("aria-expanded", "false");
+        mobileMenu?.classList.add("hidden");
+        menuToggle?.setAttribute("aria-expanded", "false");
     }
-
 
     function toggleMobileMenu() {
         if (mobileMenu.classList.contains("hidden")) {
@@ -112,188 +41,60 @@ document.addEventListener("DOMContentLoaded", () => {
         }
     }
 
+    menuToggle?.addEventListener("click", toggleMobileMenu);
+    bottomMenuToggle?.addEventListener("click", toggleMobileMenu);
 
-    menuToggle.addEventListener("click", toggleMobileMenu);
-    bottomMenuToggle.addEventListener("click", toggleMobileMenu);
-
-
-    /* Close mobile menu after navigation */
-    document.querySelectorAll(".mobile-nav-link").forEach(link => {
+    $$(".mobile-nav-link").forEach(link => {
         link.addEventListener("click", closeMobileMenu);
     });
 
-
-    /* =========================================================
-       SCROLL HANDLER
-       ========================================================= */
+    /* SCROLL HANDLER */
     function handleScroll() {
         const currentScrollY = window.scrollY;
 
         if (window.innerWidth >= 768) {
-
-            /* Show desktop top bar only at the top */
-            if (currentScrollY <= 5) {
-
-                topBar.classList.remove(
-                    "max-h-0",
-                    "py-0",
-                    "opacity-0",
-                    "border-transparent"
-                );
-
-                topBar.classList.add(
-                    "max-h-20",
-                    "py-2",
-                    "opacity-100"
-                );
-
-            }
-
-            /* Hide top bar when scrolling down */
-            else if (
-                currentScrollY > lastScrollY &&
-                currentScrollY > 30
-            ) {
-
-                topBar.classList.remove(
-                    "max-h-20",
-                    "py-2",
-                    "opacity-100"
-                );
-
-                topBar.classList.add(
-                    "max-h-0",
-                    "py-0",
-                    "opacity-0",
-                    "border-transparent"
-                );
-
-            }
-
-
-            /* Desktop logo smoothly resizes */
             if (currentScrollY > 80) {
-
-                logo.classList.remove("md:w-60");
-                logo.classList.add("md:w-44");
-
+                logo?.classList.remove("md:w-60");
+                logo?.classList.add("md:w-44");
             } else {
-
-                logo.classList.remove("md:w-44");
-                logo.classList.add("md:w-60");
-
+                logo?.classList.remove("md:w-44");
+                logo?.classList.add("md:w-60");
             }
-
         }
 
-
-        /* Header shadow */
-        if (currentScrollY > 10) {
-            header.classList.add("shadow-md");
-        } else {
-            header.classList.remove("shadow-md");
+        if (header) {
+            header.classList.toggle("shadow-md", currentScrollY > 10);
+            header.classList.toggle("is-scrolled", currentScrollY > 24);
         }
 
-
-        /* Keep open mobile menu below sticky header */
-        if (
-            window.innerWidth < 768 &&
-            !mobileMenu.classList.contains("hidden")
-        ) {
+        if (window.innerWidth < 768 && !mobileMenu.classList.contains("hidden")) {
             updateMobileMenuPosition();
         }
-
 
         lastScrollY = currentScrollY;
         ticking = false;
     }
 
-
     window.addEventListener("scroll", () => {
         if (!ticking) {
-            requestAnimationFrame(() => {
-                handleScroll();
-            });
-
+            requestAnimationFrame(handleScroll);
             ticking = true;
         }
-    }, {
-        passive: true
-    });
+    }, { passive: true });
 
-
-    /* =========================================================
-       RESIZE HANDLING
-       ========================================================= */
     window.addEventListener("resize", () => {
-
         if (window.innerWidth >= 768) {
-
             closeMobileMenu();
-            mobileMenu.style.top = "";
-
+            if (mobileMenu) mobileMenu.style.top = "";
         } else if (!mobileMenu.classList.contains("hidden")) {
-
             updateMobileMenuPosition();
-
         }
-
     });
 
-
-    /* =========================================================
-       INITIAL STATE
-       ========================================================= */
     handleScroll();
-
 });
 
-// Dark mode toggle: flips html.dark, persists choice, syncs button state.
-// Dark mode toggle: flips html.dark, persists choice, syncs button state and logo.
-(function () {
-    const toggle = document.getElementById('dark-mode-toggle');
-    const logo = document.getElementById('logo');
-    if (!toggle) return;
-
-    const root = document.documentElement;
-
-    const syncTheme = () => {
-        const isDark = root.classList.contains('dark');
-
-        toggle.setAttribute('aria-pressed', isDark ? 'true' : 'false');
-
-        if (logo) {
-            logo.src = isDark
-                ? '/src/assets/logo/logo-dark.svg'
-                : '/src/assets/logo/logo-light.svg';
-        }
-    };
-
-    syncTheme();
-
-    toggle.addEventListener('click', () => {
-        root.classList.toggle('dark');
-
-        try {
-            localStorage.setItem(
-                'theme',
-                root.classList.contains('dark') ? 'dark' : 'light'
-            );
-        } catch (e) {
-            // localStorage unavailable — theme just won't persist
-        }
-
-        syncTheme();
-    });
-})();
-
-// Sticky nav: compact once the page has moved away from the top.
-const siteNav = $('.site-nav');
-const updateNav = () => siteNav?.classList.toggle('is-scrolled', window.scrollY > 24);
-window.addEventListener('scroll', updateNav, { passive: true });
-updateNav();
-
-// Announcement bar: dismissible, reappears on every page refresh.
+/* ANNOUNCEMENT BAR */
 (function () {
     const bar = document.getElementById('announcement-bar');
     const closeBtn = document.getElementById('announcement-close');
@@ -313,8 +114,7 @@ updateNav();
     });
 })();
 
-
-// Event popup: shows automatically on every page load/refresh.
+/* EVENT POPUP */
 (function () {
     const overlay = document.getElementById('event-popup-overlay');
     const card = document.getElementById('event-popup-card');
@@ -346,8 +146,7 @@ updateNav();
     });
 })();
 
-
-// Hero video: clicking anywhere in the video panel toggles playback.
+/* HERO VIDEO */
 const playerWrap = $('#playerWrap');
 const video = $('#video');
 const thumbnail = $('#thumbnail');
@@ -360,8 +159,8 @@ const updateVideoUI = () => {
     thumbnail.classList.toggle('opacity-0', !video.paused);
 
     if (playPauseBtn) {
-        playIcon.classList.toggle('hidden', !video.paused);
-        pauseIcon.classList.toggle('hidden', video.paused);
+        playIcon?.classList.toggle('hidden', !video.paused);
+        pauseIcon?.classList.toggle('hidden', video.paused);
         playPauseBtn.classList.toggle('opacity-100', video.paused);
         playPauseBtn.classList.toggle('opacity-30', !video.paused);
         playPauseBtn.setAttribute('aria-label', video.paused ? 'Play video' : 'Pause video');
@@ -385,12 +184,12 @@ video?.addEventListener('play', updateVideoUI);
 video?.addEventListener('pause', updateVideoUI);
 video?.addEventListener('ended', updateVideoUI);
 
-video.muted = true;
-// video?.play().catch(() => { });      // autoplay
-updateVideoUI();
+if (video) {
+    video.muted = true;
+    updateVideoUI();
+}
 
-// reviwes slider
-// Free drag: no snap on release, native momentum only.
+/* REVIEWS SLIDER (Untouched functionality) */
 const REVIEWS = [
     { name: 'Jordan M.', initials: 'JM', rating: 5, time: '2 weeks ago', text: "Found out after we sat down that they don't take tips and honestly it changed how the whole meal felt. Food was great too — the burger's massive." },
     { name: 'Priya S.', initials: 'PS', rating: 5, time: '1 month ago', text: 'Finally a spot that takes allergies seriously without making a big deal of it. Server walked me through every dish I asked about.' },
@@ -410,15 +209,15 @@ const nextBtn = $('#reviews-next');
 
 if (track) {
     track.innerHTML = REVIEWS.map(r => `
-          <article class="review-card rounded-2xl p-6" style="background:var(--panel-a);border:1px solid rgba(36,29,22,.06);">
-            <div class="flex items-center gap-3 mb-4">
-              <div class="w-10 h-10 rounded-full flex items-center justify-center text-sm font-semibold text-white shrink-0 ember-gradient">${r.initials}</div>
-              <div class="min-w-0"><p class="text-sm font-semibold truncate">${r.name}</p><p class="text-xs" style="color:var(--ink-soft);">${r.time}</p></div>
-              <span class="ml-auto text-xs font-semibold" style="color:#5f6368;">Google</span>
-            </div>
-            <div class="flex gap-0.5 mb-3" style="color:var(--ember-2);">${starsSVG(r.rating)}</div>
-            <p class="text-[14px] leading-relaxed" style="color:var(--ink-soft);">${r.text}</p>
-          </article>`).join('');
+    <article class="review-card shrink-0 w-[300px] sm:w-[380px] md:w-[420px] rounded-2xl p-6" style="background:var(--panel-a);border:1px solid rgba(36,29,22,.06);">
+      <div class="flex items-center gap-3 mb-4">
+        <div class="w-10 h-10 rounded-full flex items-center justify-center text-sm font-semibold text-white shrink-0 ember-gradient">${r.initials}</div>
+        <div class="min-w-0"><p class="text-sm font-semibold truncate">${r.name}</p><p class="text-xs" style="color:var(--ink-soft);">${r.time}</p></div>
+        <span class="ml-auto text-xs font-semibold" style="color:#5f6368;">Google</span>
+      </div>
+      <div class="flex gap-0.5 mb-3" style="color:var(--ember-2);">${starsSVG(r.rating)}</div>
+      <p class="text-[14px] leading-relaxed" style="color:var(--ink-soft);">${r.text}</p>
+    </article>`).join('');
 }
 
 const cardStep = () => {
@@ -429,16 +228,16 @@ const cardStep = () => {
 const updateReviewControls = () => {
     if (!track) return;
     const maxScroll = Math.max(0, track.scrollWidth - track.clientWidth - 2);
-    prevBtn.disabled = track.scrollLeft <= 2;
-    nextBtn.disabled = track.scrollLeft >= maxScroll;
+    if (prevBtn) prevBtn.disabled = track.scrollLeft <= 2;
+    if (nextBtn) nextBtn.disabled = track.scrollLeft >= maxScroll;
 };
 
-// Arrow buttons: the only place snapping happens.
 prevBtn?.addEventListener('click', () => {
     const step = cardStep();
     const target = Math.round(track.scrollLeft / step) * step - step;
     track.scrollTo({ left: Math.max(0, target), behavior: 'smooth' });
 });
+
 nextBtn?.addEventListener('click', () => {
     const step = cardStep();
     const maxScroll = track.scrollWidth - track.clientWidth;
@@ -446,23 +245,24 @@ nextBtn?.addEventListener('click', () => {
     track.scrollTo({ left: Math.min(maxScroll, target), behavior: 'smooth' });
 });
 
-// Free drag: no snap on release, native scroll position and momentum only.
 let dragging = false, dragged = false, startX = 0, startScroll = 0;
 track?.addEventListener('pointerdown', e => {
     dragging = true; dragged = false; startX = e.clientX; startScroll = track.scrollLeft;
     track.classList.add('is-dragging'); track.setPointerCapture(e.pointerId);
 });
+
 track?.addEventListener('pointermove', e => {
     if (!dragging) return;
     const delta = e.clientX - startX;
     if (Math.abs(delta) > 4) dragged = true;
     track.scrollLeft = startScroll - delta;
 });
+
 const endDrag = () => {
     if (!dragging) return;
     dragging = false; track.classList.remove('is-dragging');
-    // Intentionally no snapping here — dragging leaves the track wherever released.
 };
+
 track?.addEventListener('pointerup', endDrag);
 track?.addEventListener('pointercancel', endDrag);
 track?.addEventListener('pointerleave', endDrag);
@@ -471,28 +271,23 @@ track?.addEventListener('scroll', updateReviewControls, { passive: true });
 window.addEventListener('resize', updateReviewControls);
 updateReviewControls();
 
-// faq
-document.querySelectorAll('.faq-item').forEach(item => {
+/* FAQ ACCORDION */
+$$('.faq-item').forEach(item => {
     const summary = item.querySelector('.faq-summary');
     const wrap = item.querySelector('.faq-answer-wrap');
 
-    summary.addEventListener('click', e => {
+    summary?.addEventListener('click', e => {
         e.preventDefault();
 
         if (item.hasAttribute('open')) {
-            // Closing: lock in the current pixel height first (in case it's
-            // "auto"), force a reflow, then animate down to 0.
             wrap.style.height = wrap.scrollHeight + 'px';
-            wrap.offsetHeight; // force reflow so the browser registers the starting height
+            wrap.offsetHeight; // force reflow
             wrap.style.height = '0px';
 
             wrap.addEventListener('transitionend', () => {
                 item.removeAttribute('open');
             }, { once: true });
-
         } else {
-            // Opening: reveal content so scrollHeight is measurable, start
-            // from 0, then animate to the measured height.
             item.setAttribute('open', '');
             const target = wrap.scrollHeight;
             wrap.style.height = '0px';
@@ -500,15 +295,13 @@ document.querySelectorAll('.faq-item').forEach(item => {
             wrap.style.height = target + 'px';
 
             wrap.addEventListener('transitionend', () => {
-                // Let it respond to font-load/resize changes afterward.
                 wrap.style.height = 'auto';
             }, { once: true });
         }
     });
 });
-// faq end
 
-// Smooth in-page navigation, including the About / FAQ links.
+/* IN-PAGE SMOOTH SCROLL */
 document.addEventListener('click', (event) => {
     const link = event.target.closest('a[href^="#"]');
     if (!link) return;
@@ -521,7 +314,7 @@ document.addEventListener('click', (event) => {
     history.pushState(null, '', id);
 });
 
-// Scroll reveal.
+/* SCROLL REVEAL OBSERVER */
 const revealObserver = new IntersectionObserver((entries, observer) => {
     entries.forEach(({ isIntersecting, target }) => {
         if (!isIntersecting) return;
@@ -529,8 +322,9 @@ const revealObserver = new IntersectionObserver((entries, observer) => {
         observer.unobserve(target);
     });
 }, { threshold: 0.15, rootMargin: '0px 0px -40px 0px' });
+
 $$('.reveal').forEach(el => revealObserver.observe(el));
 
-// footer year
+/* FOOTER YEAR */
 const yearEl = $('#footer-year');
 if (yearEl) yearEl.textContent = new Date().getFullYear();

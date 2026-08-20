@@ -1,40 +1,61 @@
 @import "tailwindcss";
 
-body {
-  background-color: #eef1e6;
+@layer base {
+  :root {
+    --cream: #eef0e4;
+    --panel-a: #f6f3ea;
+    --panel-b: #f4e6d6;
+    --panel-c: #eef0e4;
+    --ink: #241d16;
+    --ink-soft: #6b6153;
+    --ember-1: #f4a620;
+    --ember-2: #e2572a;
+    --ember-3: #a8321c;
+  }
+
+  body {
+    background-color: var(--cream);
+    color: var(--ink);
+  }
 }
 
-.container {
-  max-width: 1250px;
+/* Custom Gradients & Typography */
+@utility ember-gradient {
+  background: linear-gradient(135deg, var(--ember-1), var(--ember-2) 55%, var(--ember-3));
 }
 
-/* menu */
-.custom-scrollbar::-webkit-scrollbar {
-  width: 6px;
+@utility ember-text {
+  background: linear-gradient(135deg, var(--ember-1), var(--ember-2) 60%, var(--ember-3));
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
 }
 
-.custom-scrollbar::-webkit-scrollbar-track {
-  background: transparent;
+.font-display {
+  font-family: 'Fraunces', serif;
 }
 
-.custom-scrollbar::-webkit-scrollbar-thumb {
-  background: #d4d4d8;
-  border-radius: 10px;
+/* Custom Scrollbar (menu thumbnail list) */
+@utility custom-scrollbar {
+  &::-webkit-scrollbar {
+    width: 6px;
+  }
+
+  &::-webkit-scrollbar-track {
+    background: transparent;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background: var(--panel-b);
+    border-radius: 10px;
+
+    &:hover {
+      background: var(--ink-soft);
+    }
+  }
 }
 
-.custom-scrollbar::-webkit-scrollbar-thumb:hover {
-  background: #a1a1aa;
-}
-
-.drag-scroll {
-  cursor: grab;
-  user-select: none;
-}
-
-.drag-scroll:active {
-  cursor: grabbing;
-}
-
+/* Menu Thumbnail Progress Indicator */
 .progress-bar {
   animation: progress 5s linear forwards;
 }
@@ -53,94 +74,76 @@ body {
   }
 }
 
+/* Menu Slide Fade Transition */
 .fade-in {
-  animation: fadeIn 0.4s ease-in-out forwards;
+  animation: fadeIn 0.4s ease-out;
 }
 
 @keyframes fadeIn {
   from {
     opacity: 0;
-    transform: scale(0.98);
   }
 
   to {
     opacity: 1;
-    transform: scale(1);
   }
 }
 
-/* Nav button border flash fix */
-.nav-btn {
-  border: none !important;
-  outline: none !important;
-  box-shadow: none !important;
-}
-
-.thumbnail-item {
-  box-sizing: border-box;
-  border-width: 1px;
-  border-style: solid;
-  border-color: #e5e7eb;
-  will-change: background-color, box-shadow;
-}
-
+/* Menu Active Thumbnail Highlight */
 .thumbnail-item.is-active {
-  background: #f3f4f6;
-  border-color: #d1d5db;
-  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+  background: var(--panel-b);
+  box-shadow: inset 3px 0 0 var(--ember-2);
 }
 
-.main-slide img {
-  transform: translateZ(0);
-  backface-visibility: hidden;
+/* Menu Draggable Thumbnail List */
+.drag-scroll {
+  cursor: grab;
 }
 
-@media (max-width: 900px) {
-  .menu-layout {
-    flex-direction: column;
-    height: auto;
-  }
-
-  .vertical-nav {
-    flex-direction: row;
-    overflow-x: auto;
-  }
-
-  #left-column,
-  #right-column {
-    width: 100%;
-  }
-
-  #thumbnail-list {
-    max-height: 440px;
-  }
+.drag-scroll:active {
+  cursor: grabbing;
 }
 
-/* menu end */
-
-/* faq */
-.faq-summary {
-  cursor: pointer;
-  list-style: none;
+/* Scroll Reveal States */
+.reveal {
+  opacity: 0;
+  transform: translateY(28px);
+  transition: opacity 0.7s cubic-bezier(0.16, 1, 0.3, 1), transform 0.7s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
-.faq-summary::-webkit-details-marker {
-  display: none;
+.reveal.is-visible {
+  opacity: 1;
+  transform: translateY(0);
 }
 
-.faq-chevron {
-  transition: transform 0.2s cubic-bezier(0.4, 0, 0.2, 1);
-}
-
-.faq-item[open] .faq-chevron {
-  transform: rotate(180deg);
-}
-
-/* Height is set directly via JS (0 -> scrollHeight px -> 0), not fr units */
+/* FAQ Collapsible Wrapper (Height managed by JS) */
 .faq-answer-wrap {
   height: 0;
   overflow: hidden;
   transition: height 0.2s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
-/* faq end */
+/* Sticky Navigation Scroll Effect */
+.site-nav.is-scrolled {
+  box-shadow: 0 10px 28px rgba(36, 29, 22, 0.08);
+}
+
+.site-nav.is-scrolled #logo {
+  width: 11rem;
+}
+
+/* Accessibility: Reduced Motion */
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  .site-nav,
+  #mobile-menu,
+  .faq-chevron,
+  .card,
+  .card-img,
+  .reveal {
+    transition: none !important;
+  }
+}

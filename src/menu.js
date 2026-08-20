@@ -55,8 +55,8 @@ function activateSlide(targetIndex) {
         const progress = thumb.querySelector('.progress-indicator');
 
         thumb.classList.toggle('is-active', isMatch);
-        thumb.classList.toggle('bg-white', !isMatch);
-        thumb.classList.toggle('hover:bg-gray-50', !isMatch);
+        thumb.classList.toggle('bg-[var(--panel-a)]', !isMatch);
+        thumb.classList.toggle('hover:bg-[var(--panel-c)]', !isMatch);
         thumb.querySelector('.thumb-img').classList.toggle('scale-110', isMatch);
 
         progress.classList.remove('progress-bar');
@@ -101,8 +101,8 @@ const prevSlide = () => navigateSlide(-1);
 function filterCategory(category) {
     navBtns.forEach(btn => {
         const isMatch = btn.dataset.filter === category;
-        btn.className = `nav-btn w-full text-center px-4 py-4 uppercase tracking-widest text-sm font-bold transition-all duration-200 ${isMatch ? 'text-gray-900 bg-gray-100'
-            : 'text-gray-500 hover:text-gray-900 hover:bg-gray-50'
+        btn.className = `nav-btn w-full text-center px-4 py-4 uppercase tracking-widest text-sm font-bold transition-all duration-200 ${isMatch ? 'text-[var(--ink)] bg-[var(--panel-b)]'
+            : 'text-[var(--ink-soft)] hover:text-[var(--ink)] hover:bg-[var(--panel-c)]'
             }`;
     });
 
