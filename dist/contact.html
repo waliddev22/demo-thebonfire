@@ -5,13 +5,82 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>The Bonfire Restaurant</title>
-  <script type="module" crossorigin src="/assets/style-DiqK6RH-.js"></script>
-  <link rel="stylesheet" crossorigin href="/assets/style-EsDSXsjl.css">
+  <script type="module" crossorigin src="/assets/style-DRn-UuLi.js"></script>
+  <script type="module" crossorigin src="/assets/main-Cw6lnxjb.js"></script>
+  <link rel="stylesheet" crossorigin href="/assets/style--D5EIK1t.css">
 </head>
 
-<body>
+<body class="min-h-screen flex flex-col container mx-auto px-4">
 
-  <header></header>
+  <header>
+    <nav class="w-full py-2">
+      <div class="flex justify-between items-center flex-wrap gap-y-3">
+
+        <div class="hidden md:flex md:flex-col gap-1 flex-1 text-sm">
+          <p class="flex items-center gap-1">
+            <img id="hours-icon" src="data:image/svg+xml,%3csvg%20xmlns='http://www.w3.org/2000/svg'%20height='48px'%20viewBox='0%20-960%20960%20960'%20width='48px'%20fill='%23000000'%3e%3cpath%20d='m627-287%2045-45-159-160v-201h-60v225l174%20181ZM480-80q-82%200-155-31.5t-127.5-86Q143-252%20111.5-325T80-480q0-82%2031.5-155t86-127.5Q252-817%20325-848.5T480-880q82%200%20155%2031.5t127.5%2086Q817-708%20848.5-635T880-480q0%2082-31.5%20155t-86%20127.5Q708-143%20635-111.5T480-80Zm0-400Zm0%20340q140%200%20240-100t100-240q0-140-100-240T480-820q-140%200-240%20100T140-480q0%20140%20100%20240t240%20100Z'/%3e%3c/svg%3e" class="w-4" alt="Hours icon" />
+            <span class="font-bold">Today's Hours</span>: From 3 PM to 11:00 PM
+          </p>
+          <p class="flex items-center gap-1">
+            <img id="location-icon" src="data:image/svg+xml,%3csvg%20xmlns='http://www.w3.org/2000/svg'%20height='48px'%20viewBox='0%20-960%20960%20960'%20width='48px'%20fill='%23000000'%3e%3cpath%20d='M480.09-490q28.91%200%2049.41-20.59%2020.5-20.59%2020.5-49.5t-20.59-49.41q-20.59-20.5-49.5-20.5t-49.41%2020.59q-20.5%2020.59-20.5%2049.5t20.59%2049.41q20.59%2020.5%2049.5%2020.5ZM480-159q133-121%20196.5-219.5T740-552q0-117.79-75.29-192.9Q589.42-820%20480-820t-184.71%2075.1Q220-669.79%20220-552q0%2075%2065%20173.5T480-159Zm0%2079Q319-217%20239.5-334.5T160-552q0-150%2096.5-239T480-880q127%200%20223.5%2089T800-552q0%20100-79.5%20217.5T480-80Zm0-480Z'/%3e%3c/svg%3e" class="w-4" alt="Location icon" />
+            2394 Robie St, Halifax, NS B3K 4M7, Canada
+          </p>
+          <a class="flex items-center gap-1" href="tel:+19024743076">
+            <img id="call-icon" src="data:image/svg+xml,%3csvg%20xmlns='http://www.w3.org/2000/svg'%20height='48px'%20viewBox='0%20-960%20960%20960'%20width='48px'%20fill='%23000000'%3e%3cpath%20d='M776.13-140q-108.62%200-221.99-53.32T343.71-343.9q-97.07-97.25-150.39-210.43Q140-667.51%20140-776.13q0-18.8%2012.43-31.33Q164.85-820%20183.49-820h119.57q15.48%200%2026.52%2010.09%2011.03%2010.09%2015.01%2025.71l23.54%20110.68q2.18%2015.55-1%2027.52-3.18%2011.97-11.85%2020.13l-93.72%2091.25q25.29%2044.24%2054.68%2082.48%2029.4%2038.24%2063.61%2072.22%2035.89%2036.56%2076.36%2067.1%2040.46%2030.54%2086.84%2055.92l90.44-92.43q9.79-10.59%2022.5-14.44%2012.71-3.84%2026.47-1.84l101.74%2021.79q15.82%203.74%2025.81%2016%209.99%2012.25%209.99%2027.77v116.56q0%2018.64-12.54%2031.06Q794.93-140%20776.13-140ZM236.97-580.97l78.83-76.16q1.66-1.54%202.24-4.23.58-2.69.06-5l-20.36-97.23q-.51-3.08-2.56-4.62-2.05-1.53-5.13-1.53h-94.2q-2.31%200-3.85%201.53-1.54%201.54-1.54%203.85%201.59%2041.41%2013.09%2086.9%2011.5%2045.49%2033.42%2096.49Zm353.54%20348q40.59%2019.61%2087.5%2030.37%2046.91%2010.75%2086.35%2012.19%202.31%200%203.85-1.54%201.53-1.54%201.53-3.85v-93.48q0-3.08-1.53-5.13-1.54-2.05-4.62-2.56l-88.46-18.16q-2.31-.51-4.04.07-1.73.57-3.65%202.24l-76.93%2079.85Zm-353.54-348Zm353.54%20348Z'/%3e%3c/svg%3e" class="w-4" alt="Call icon" />
+            +1 902-474-3076
+          </a>
+        </div>
+
+        <div class="mx-auto md:mx-0">
+          <a href="/">
+            <img id="logo" src="/assets/the-bonefire-logo-CXnyk0Ym.avif" class="w-40 md:w-70"
+              alt="The Bonefire Restaurant Logo" />
+          </a>
+        </div>
+
+
+        <div class="hidden md:flex gap-x-2 flex-1 justify-end items-center">
+          <button
+            class="relative inline-flex px-10 py-2 text-lg border-2 border-[#3F2A1D] hover:border-red-700 [clip-path:polygon(10%_0%,_100%_0%,_100%_90%,_90%_100%,_0%_100%,_0%_10%)]">
+            <span
+              class="absolute inset-0 bg-[#31272a] hover:bg-[#30161e] [clip-path:polygon(10%_0%,_100%_0%,_100%_90%,_90%_100%,_0%_100%,_0%_10%)]"></span>
+            <span class="relative z-10 text-[#f6c798]">
+              ORDER NOW
+            </span>
+          </button>
+        </div>
+
+        <button id="menu-toggle" class="md:hidden p-2" aria-label="Toggle menu" aria-expanded="false">
+          <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+          </svg>
+        </button>
+      </div>
+
+      <ul id="nav-links"
+        class="hidden md:flex flex-col md:flex-row md:items-center gap-x-7 gap-y-2 mt-4 md:mt-8 text-[#3F2A1D] justify-center">
+        <li><a href="/index" data-path="/index" class="nav-link hover:text-[#a75624] px-2 py-1 transition">HOME</a></li>
+        <li><a href="/menu" data-path="/menu" class="nav-link hover:text-[#a75624] px-2 py-1 transition">MENU</a></li>
+        <li><a href="/catering" data-path="/catering"
+            class="nav-link hover:text-[#a75624] px-2 py-1 transition">CATERING</a></li>
+        <li><a href="/events" data-path="/reservation"
+            class="nav-link hover:text-[#a75624] px-2 py-1 transition">RESERVATION & EVENTS</a></li>
+        <li><a href="/location" data-path="/location"
+            class="nav-link hover:text-[#a75624] px-2 py-1 transition">LOCATION & HOURS</a></li>
+        <li><a href="/about" data-path="/about" class="nav-link hover:text-[#a75624] px-2 py-1 transition">ABOUT US</a>
+        </li>
+        <li><a href="/contact" data-path="/contact" class="nav-link hover:text-[#a75624] px-2 py-1 transition">CONTACT
+            US</a></li>
+        <li><a href="/blog" data-path="/blog" class="nav-link hover:text-[#a75624] px-2 py-1 transition">BLOG</a></li>
+        <li class="md:hidden pt-2">
+          <a href="/order"
+            class="block text-center bg-[#a75624] hover:bg-[#8a4519] text-white text-sm font-bold px-5 py-2 rounded transition">
+            ORDER NOW
+          </a>
+        </li>
+      </ul>
+    </nav>
+  </header>
 
   <main>
     <a href="/menu.html">Menu</a>

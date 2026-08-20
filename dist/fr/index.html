@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="fr">
 
 <head>
   <meta charset="UTF-8">
@@ -18,7 +18,7 @@
     })();
   </script>
 
-  <title>The Bonfire Restaurant</title>
+  <title>Restaurant The Bonfire</title>
 
   <link rel="alternate" hreflang="en" href="https://thebonfire.example.com/" />
   <link rel="alternate" hreflang="fr" href="https://thebonfire.example.com/fr/" />
@@ -425,6 +425,7 @@
 </head>
 
 <body class="antialiased min-h-screen flex flex-col">
+  <!-- ai -->
   <header id="site-header" class="site-nav pb-5 sticky top-0 z-50 transition-shadow duration-300">
     <!-- Announcement bar: trivia night info, sits above the header -->
     <div id="announcement-bar" class="relative w-full ember-gradient transition-all duration-300 overflow-hidden">
@@ -435,10 +436,10 @@
           <path d="M12 7v5l3.5 2" />
         </svg>
         <p class="text-xs sm:text-sm font-semibold text-white leading-snug">
-          Trivia Night — this Thursday, 7pm.
-          <a href="#faq" class="underline underline-offset-2 hover:text-white/80 transition">Reserve a table →</a>
+          Soirée Trivia — jeudi prochain, 19h.
+          <a href="#faq" class="underline underline-offset-2 hover:text-white/80 transition">Réserver une table →</a>
         </p>
-        <button id="announcement-close" type="button" aria-label="Close announcement"
+        <button id="announcement-close" type="button" aria-label="Fermer l'annonce"
           class="shrink-0 absolute right-3 sm:right-4 top-1/2 -translate-y-1/2 w-6 h-6 rounded-full flex items-center justify-center transition hover:bg-white/15">
           <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.5"
             stroke-linecap="round" stroke-linejoin="round">
@@ -469,7 +470,7 @@
             </svg>
 
             <span class="text-xs">
-              <strong>Today's Hours:</strong> 3 PM–11 PM
+              <strong>Heures d'aujourd'hui :</strong> 15h–23h
             </span>
           </p>
 
@@ -522,7 +523,7 @@
 
             <button id="language-toggle" type="button"
               class="flex items-center gap-1 text-[#3F2A1D] hover:text-[#a75624] transition"
-              aria-label="Select language" aria-expanded="false" aria-controls="language-menu">
+              aria-label="Choisir la langue" aria-expanded="false" aria-controls="language-menu">
 
               <!-- Globe: desktop only -->
               <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
@@ -532,7 +533,7 @@
               </svg>
 
               <span id="current-language" class="font-semibold text-xs leading-none">
-                EN
+                FR
               </span>
 
               <!-- Arrow -->
@@ -551,12 +552,12 @@
 
               <a href="/" class="language-option block w-full px-4 py-2.5 text-left text-sm
               text-[#3F2A1D] hover:bg-gray-50 hover:text-[#a75624] transition" data-language="EN">
-                English
+                Anglais
               </a>
 
               <a href="/fr/" class="language-option block w-full px-4 py-2.5 text-left text-sm
               text-[#3F2A1D] hover:bg-gray-50 hover:text-[#a75624] transition" data-language="FR">
-                French
+                Français
               </a>
 
             </div>
@@ -565,7 +566,7 @@
 
 
           <!-- DARK MODE -->
-          <button id="dark-mode-toggle" type="button" aria-label="Toggle dark mode" aria-pressed="false"
+          <button id="dark-mode-toggle" type="button" aria-label="Basculer le mode sombre" aria-pressed="false"
             class="flex items-center justify-center text-[#3F2A1D] hover:text-[#a75624] transition">
 
             <!-- Moon: shown in light mode, click to switch to dark -->
@@ -594,7 +595,7 @@
         <a href="/" class="absolute left-1/2 -translate-x-1/2
         md:static md:translate-x-0 md:mx-auto shrink-0" aria-label="The Bonfire home">
 
-          <img id="logo" src="/assets/logo-light-B-Xum0US.svg" class="w-[145px] sm:w-[155px] md:w-60 h-auto 
+          <img id="logo" src="/assets/logo-CGHe_HvL.svg" class="w-[145px] sm:w-[155px] md:w-60 h-auto bg-amber-600
           md:transition-[width] md:duration-300 md:ease-in-out" alt="Logo du restaurant The Bonfire">
 
         </a>
@@ -614,7 +615,7 @@
             </span>
 
             <span class="relative z-10 text-[#f6c798]">
-              ORDER NOW
+              COMMANDER
             </span>
 
           </a>
@@ -626,7 +627,7 @@
          MOBILE HAMBURGER
          =================================================== -->
         <button id="mobile-menu-toggle" type="button" class="md:hidden ml-auto w-9 h-9 flex items-center justify-center
-        text-[#3F2A1D] hover:text-[#a75624] transition" aria-label="Toggle menu" aria-expanded="false"
+        text-[#3F2A1D] hover:text-[#a75624] transition" aria-label="Basculer le menu" aria-expanded="false"
           aria-controls="mobile-menu">
 
           <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"
@@ -639,6 +640,24 @@
       </div>
 
       <!-- =====================================================
+       MOBILE QUICK NAV
+       ===================================================== -->
+      <div id="mobile-quick-nav" class="md:hidden flex items-center justify-center gap-x-3 sm:gap-x-6
+      border-t border-gray-100 py-2
+      text-xs hidden font-medium text-[#3F2A1D]
+      whitespace-nowrap">
+        <a href="/catering" class="hover:text-[#a75624] transition">
+          TRAITEUR
+        </a>
+        <a href="/events" class="hover:text-[#a75624] transition">
+          RÉSERVATIONS ET ÉVÉNEMENTS
+        </a>
+        <a href="/location" class="hover:text-[#a75624] transition">
+          EMPLACEMENT ET HORAIRES
+        </a>
+      </div>
+
+      <!-- =====================================================
        DESKTOP NAV
        ===================================================== -->
       <div id="nav-links" class="hidden md:block">
@@ -648,7 +667,7 @@
 
           <li>
             <a href="/#home" class="nav-link block px-2 py-2 transition">
-              HOME
+              ACCUEIL
             </a>
           </li>
 
@@ -660,37 +679,37 @@
 
           <li>
             <a href="/catering" class="nav-link block px-2 py-2 transition">
-              CATERING
+              TRAITEUR
             </a>
           </li>
 
           <li>
             <a href="/events" class="nav-link block px-2 py-2 transition">
-              RESERVATION &amp; EVENTS
+              RÉSERVATIONS ET ÉVÉNEMENTS
             </a>
           </li>
 
           <li>
             <a href="/location" class="nav-link block px-2 py-2 transition">
-              LOCATION &amp; HOURS
+              EMPLACEMENT ET HORAIRES
             </a>
           </li>
 
           <li>
             <a href="#about" class="nav-link block px-2 py-2 transition">
-              ABOUT US
+              À PROPOS
             </a>
           </li>
 
           <li>
             <a href="/contact" class="nav-link block px-2 py-2 transition">
-              CONTACT US
+              CONTACTEZ-NOUS
             </a>
           </li>
 
           <li>
             <a href="/blog" class="nav-link block px-2 py-2 transition">
-              BLOG
+              BLOGUE
             </a>
           </li>
 
@@ -721,7 +740,7 @@
 
         <li>
           <a href="/index" class="mobile-nav-link block py-3.5 border-b border-gray-100">
-            HOME
+            ACCUEIL
           </a>
         </li>
 
@@ -733,37 +752,37 @@
 
         <li>
           <a href="/catering" class="mobile-nav-link block py-3.5 border-b border-gray-100">
-            CATERING
+            TRAITEUR
           </a>
         </li>
 
         <li>
           <a href="/events" class="mobile-nav-link block py-3.5 border-b border-gray-100">
-            RESERVATION &amp; EVENTS
+            RÉSERVATIONS ET ÉVÉNEMENTS
           </a>
         </li>
 
         <li>
           <a href="/location" class="mobile-nav-link block py-3.5 border-b border-gray-100">
-            LOCATION &amp; HOURS
+            EMPLACEMENT ET HORAIRES
           </a>
         </li>
 
         <li>
           <a href="#about" class="mobile-nav-link block py-3.5 border-b border-gray-100">
-            ABOUT US
+            À PROPOS
           </a>
         </li>
 
         <li>
           <a href="/contact" class="mobile-nav-link block py-3.5 border-b border-gray-100">
-            CONTACT US
+            CONTACTEZ-NOUS
           </a>
         </li>
 
         <li>
           <a href="/blog" class="mobile-nav-link block py-3.5 border-b border-gray-100">
-            BLOG
+            BLOGUE
           </a>
         </li>
 
@@ -808,11 +827,12 @@
     bg-[#31272a] text-[#f6c798]
     hover:bg-[#a75624] transition">
 
-      ORDER NOW
+      COMMANDER
 
     </a>
 
   </div>
+  <!-- ai end -->
 
   <!-- Event Popup: shows automatically on every page load -->
   <div id="event-popup-overlay"
@@ -823,7 +843,7 @@
       style="background:var(--panel-a);">
 
       <!-- Close button -->
-      <button id="event-popup-close" type="button" aria-label="Close"
+      <button id="event-popup-close" type="button" aria-label="Fermer"
         class="absolute top-3 right-3 z-10 w-9 h-9 rounded-full flex items-center justify-center transition hover:brightness-110"
         style="background: rgba(26,21,16,.55); color: var(--cream);">
         <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"
@@ -834,13 +854,13 @@
 
       <!-- Picture -->
       <div class="relative aspect-[16/10] overflow-hidden">
-        <img src="/assets/team-BY26SOE5.avif" alt="Guests playing trivia night at The Bonfire"
+        <img src="/assets/team-BY26SOE5.avif" alt="Des clients à la soirée Trivia du Bonfire"
           class="w-full h-full object-cover" />
         <div class="absolute inset-0" style="background: linear-gradient(to top, rgba(26,21,16,.55), transparent 55%);">
         </div>
         <span
           class="absolute bottom-3 left-4 inline-flex items-center gap-2 text-[11px] font-semibold tracking-[0.2em] uppercase px-3 py-1.5 rounded-full ember-gradient text-white">
-          This Thursday
+          Jeudi prochain
         </span>
       </div>
 
@@ -848,22 +868,22 @@
       <div class="p-6 sm:p-7 text-center">
         <h3 id="event-popup-title" class="font-display text-2xl sm:text-[26px] font-medium leading-[1.15]"
           style="color:var(--ink);">
-          Trivia Night is back
+          La soirée Trivia est de retour
         </h3>
         <p class="mt-2.5 text-sm leading-relaxed" style="color:var(--ink-soft);">
-          Brooklyn 99 edition — 7pm sharp. Grab a team, grab a table, and grab something off the grill.
-          Prizes for the top two teams, bragging rights for everyone else.
+          Édition Brooklyn 99 — 19h précises. Formez une équipe, prenez une table et savourez quelque
+          chose du grill. Prix pour les deux meilleures équipes, fierté pour tous les autres.
         </p>
 
         <div class="mt-5 flex flex-col sm:flex-row gap-3 justify-center">
           <a href="#faq"
             class="inline-flex items-center justify-center gap-2 px-6 py-2.5 rounded-full text-sm font-semibold text-white ember-gradient hover:brightness-105 transition">
-            Reserve a Table
+            Réserver une table
           </a>
           <button id="event-popup-dismiss" type="button"
             class="inline-flex items-center justify-center px-6 py-2.5 rounded-full text-sm font-semibold transition border border-black/10 hover:bg-black/5"
             style="color:var(--ink-soft);">
-            Maybe next time
+            Peut-être une prochaine fois
           </button>
         </div>
       </div>
@@ -879,17 +899,18 @@
         <div
           class="relative gap-5 md:gap-6 flex flex-col items-center justify-center flex-1 h-full bg-[#f3e7da] py-3.5 md:py-0 pb-5 rounded-2xl">
           <img class="w-48 md:w-120 opacity-30 -z-0 absolute inset-0 m-auto max-w-full max-h-full"
-            src="/assets/fire-logo-BUV1fzex.png" alt="Fire Logo">
+            src="/assets/fire-logo-BUV1fzex.png" alt="Logo du feu">
           <div class="flex items-center justify-center md:justify-between px-4">
             <div
               class="text-[#3F2A1D] z-10 flex font-serif flex-col items-center text-center text-2xl sm:text-3xl md:text-5xl">
-              <h2>A Tip-Free, Profit-Sharing</h2>
-              <h2>Pub & Grill</h2>
+              <h2>Un pub-grill sans pourboire,</h2>
+              <h2>à profits partagés</h2>
             </div>
           </div>
 
           <div class="text-center z-10 px-4">
-            <h3 class="mb-4 text-base sm:text-lg md:text-xl text-[#3F2A1D] font-bold">Comfort Food Off The Grill</h3>
+            <h3 class="mb-4 text-base sm:text-lg md:text-xl text-[#3F2A1D] font-bold">Cuisine réconfortante, tout droit
+              du grill</h3>
             <a href="/order" class="relative inline-flex py-2 px-9 text-base border-2 border-[#3F2A1D]
           hover:border-red-300
           [clip-path:polygon(10%_0%,_100%_0%,_100%_90%,_90%_100%,_0%_100%,_0%_10%)]">
@@ -903,8 +924,8 @@
           </div>
 
           <p class="text-[#3F2A1D] z-10 text-center text-sm md:text-base">
-            Group? Check
-            <a class="text-[#3F2A1D] font-bold underline" href="#">Catering</a>
+            En groupe ? Consultez notre
+            <a class="text-[#3F2A1D] font-bold underline" href="#">service traiteur</a>
           </p>
         </div>
 
@@ -923,7 +944,7 @@
             <polygon
               points="441.105,0 429.56,37.267 392.209,37.267 422.429,60.298 410.885,97.57 441.105,74.529 471.324,97.57 459.78,60.298 490,37.267 452.649,37.267" />
           </svg>
-          <span>135 Google reviews</span>
+          <span>135 avis Google</span>
         </div>
       </div>
 
@@ -934,14 +955,14 @@
           <!-- Thumbnail (shown when the video is paused) -->
           <img id="thumbnail"
             class="absolute inset-0 w-full h-full object-cover transition-opacity duration-700 ease-in-out z-10"
-            src="/assets/burger-BR0oFFl6.jpg" alt="Video thumbnail">
+            src="/assets/burger-BR0oFFl6.jpg" alt="Aperçu vidéo">
 
           <!-- Video -->
           <video id="video" class="absolute inset-0 w-full h-full object-cover" muted playsinline preload="auto"
             src="/assets/hero-section-video-CRsxl6HD.mp4"></video>
 
           <!-- Play/Pause button -->
-          <button id="playPauseBtn" type="button" aria-label="Play video" class="absolute inset-0 m-auto z-20 flex items-center justify-center w-14 h-14 md:w-16 md:h-16 rounded-full
+          <button id="playPauseBtn" type="button" aria-label="Lire la vidéo" class="absolute inset-0 m-auto z-20 flex items-center justify-center w-14 h-14 md:w-16 md:h-16 rounded-full
                    bg-black/50 text-white opacity-100 transition-opacity duration-300
                    backdrop-blur-sm">
             <svg id="playIcon" class="w-6 h-6 md:w-7 md:h-7 ml-1" viewBox="0 0 24 24" fill="currentColor">
@@ -953,11 +974,11 @@
           </button>
           <!-- The entire video panel is the play/pause control. -->
         </div>
-        <!-- Follow us on Instagram (desktop only, mobile version is combined below) -->
+        <!-- Suivez-nous sur Instagram (desktop only, mobile version is combined below) -->
         <div class="hidden md:flex justify-end mt-3 px-1">
           <a href="https://instagram.com" target="_blank" rel="noopener noreferrer"
             class="flex items-center gap-1.5 text-sm font-medium text-neutral-700 hover:text-red-500 transition-colors">
-            Follow us on Instagram
+            Suivez-nous sur Instagram
             <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
               stroke-linecap="round" stroke-linejoin="round">
               <rect x="2" y="2" width="20" height="20" rx="5"></rect>
@@ -984,11 +1005,11 @@
             <polygon
               points="441.105,0 429.56,37.267 392.209,37.267 422.429,60.298 410.885,97.57 441.105,74.529 471.324,97.57 459.78,60.298 490,37.267 452.649,37.267" />
           </svg>
-          <span>135 Google reviews</span>
+          <span>135 avis Google</span>
         </div>
         <a href="https://instagram.com" target="_blank" rel="noopener noreferrer"
           class="flex items-center gap-1 text-[10px] font-medium text-neutral-700 hover:text-red-500 transition-colors">
-          Follow us on Instagram
+          Suivez-nous sur Instagram
           <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
             stroke-linecap="round" stroke-linejoin="round">
             <rect x="2" y="2" width="20" height="20" rx="5"></rect>
@@ -1008,29 +1029,29 @@
             <span
               class="inline-flex items-center gap-2 text-[10px] sm:text-xs font-semibold tracking-[0.1em] sm:tracking-[0.25em] uppercase ember-text mb-4 whitespace-nowrap">
               <span class="w-6 h-px ember-gradient shrink-0"></span>
-              Kjipuktuk / Halifax's Only Tip-Free Pub &amp; Grill
+              Le seul pub-grill sans pourboire de Kjipuktuk / Halifax
             </span>
             <h2
               class="font-display text-2xl sm:text-4xl md:text-5xl font-medium leading-[1.15] md:leading-[1.1] text-[var(--ink)]">
-              Started by two people<br>Done with the old rules
+              Fondé par deux personnes<br>Fait autrement
             </h2>
           </div>
 
           <!-- Image -->
           <div
-            class="order-2 overflow-hidden md:order-2 md:col-start-2 md:row-start-1 md:row-span-2 relative rounded-2xl overflow-hidden h-64 sm:h-72 md:h-80 lg:h-[340px]">
-            <img class="scale-150 -translate-y-12" src="/assets/owners-7U-s24N7.jpg"
-              alt="Vince and Kristyn, co-owners of The Bonfire" class="w-full h-full object-cover" />
+            class="order-2 md:order-2 md:col-start-2 md:row-start-1 md:row-span-2 relative rounded-2xl overflow-hidden h-64 sm:h-72 md:h-80 lg:h-[340px]">
+            <img src="/assets/owners-7U-s24N7.jpg" alt="Vince et Kristyn, copropriétaires du Bonfire"
+              class="w-full h-full object-cover" />
           </div>
 
           <!-- Paragraph -->
           <div class="order-3 md:order-3 md:col-start-1 md:row-start-2">
             <p class="text-[15px] leading-relaxed text-[var(--ink-soft)] max-w-xl">
-              We're Vince &amp; Kristyn, and we own the place! We've been talking about having a
-              restaurant ever since we got together, and we can't believe it's finally happening.
-              Vince (he/him) has worked in kitchens for over 20 years, and Kristyn (she/they) is a
-              professional host — we're working together to create the most welcoming and delicious
-              restaurant experience for the neighbourhood and city we love.
+              Nous sommes Vince et Kristyn, et c'est notre restaurant ! Nous parlons d'ouvrir un
+              restaurant depuis que nous sommes ensemble, et nous avons peine à croire que ça y est
+              enfin. Vince (il/lui) travaille en cuisine depuis plus de 20 ans, et Kristyn (elle/iel)
+              est hôtesse professionnelle — ensemble, nous créons l'expérience de restaurant la plus
+              accueillante et la plus délicieuse pour le quartier et la ville que nous aimons.
             </p>
           </div>
         </div>
@@ -1039,7 +1060,7 @@
         <span
           class="reveal inline-flex items-center gap-2 text-[8px] sm:text-xs font-semibold tracking-[0.1em] sm:tracking-[0.25em] uppercase ember-text mb-5 whitespace-nowrap">
           <span class="w-6 h-px ember-gradient shrink-0"></span>
-          A Little Different, On Purpose
+          Un peu différent, volontairement
         </span>
 
         <!-- 3-column feature grid -->
@@ -1052,14 +1073,14 @@
               <img src="/assets/team-BY26SOE5.avif" alt="Friends laughing together at a table"
                 class="card-img w-full h-full object-cover" />
             </div>
-            <h3 class="font-display text-lg sm:text-xl font-semibold mb-2.5 text-[var(--ink)] whitespace-nowrap">We
-              Don't
-              Accept Tips
+            <h3 class="font-display text-lg sm:text-xl font-semibold mb-2.5 text-[var(--ink)] whitespace-nowrap">Aucun
+              pourboire
+              accepté
             </h3>
             <p class="text-base leading-snug text-[var(--ink-soft)]">
-              We don't treat staff as <span class="font-semibold text-[var(--ink)]">expendable</span> or guests as
-              <span class="font-semibold text-[var(--ink)]">profit-drivers</span>. Our team starts at $20/hr, plus 50%
-              profit-sharing.
+              Nous ne traitons pas notre personnel comme <span class="font-semibold text-[var(--ink)]">jetable</span>,
+              ni nos clients comme des <span class="font-semibold text-[var(--ink)]">générateurs de profit</span>.
+              Notre équipe commence à 20 $/h, plus 50 % de partage des profits.
             </p>
           </article>
 
@@ -1069,12 +1090,13 @@
               <img src="/assets/staff-6otlpZlw.jpg" alt="Bacon cheeseburger fresh off the grill"
                 class="card-img w-full h-full object-cover" style="object-position: center 45%;" />
             </div>
-            <h3 class="font-display text-lg sm:text-xl font-semibold mb-2.5 text-[var(--ink)] whitespace-nowrap">Comfort
-              Food Off The
-              Grill</h3>
+            <h3 class="font-display text-lg sm:text-xl font-semibold mb-2.5 text-[var(--ink)] whitespace-nowrap">Cuisine
+              réconfortante
+              du grill</h3>
             <p class="text-base leading-snug text-[var(--ink-soft)]">
-              Comfort food, done with care — with <span class="font-semibold text-[var(--ink)]">allergy-friendly
-                options</span>, because we believe it's easy to be accommodating.
+              Une cuisine réconfortante, préparée avec soin — avec des <span
+                class="font-semibold text-[var(--ink)]">options
+                adaptées aux allergies</span>, parce que nous croyons qu'il est facile d'être accommodant.
             </p>
           </article>
 
@@ -1085,11 +1107,13 @@
                 class="card-img w-full h-full object-cover" style="object-position: center 80%;" />
             </div>
             <h3 class="font-display text-lg sm:text-xl font-semibold mb-2.5 text-[var(--ink)] whitespace-nowrap">
-              Alcohol-Free Options
+              Options sans alcool
             </h3>
             <p class="text-base leading-snug text-[var(--ink-soft)]">
-              Every mixed drink comes <span class="font-semibold text-[var(--ink)]">alcohol-free by default</span>, with
-              spirit pairings for those who want them — preferences recognized, not just tolerated.
+              Chaque cocktail est servi <span class="font-semibold text-[var(--ink)]">sans alcool par défaut</span>,
+              avec
+              des accords d'alcool pour celles et ceux qui le souhaitent — les préférences sont reconnues, pas
+              seulement tolérées.
             </p>
           </article>
 
@@ -1099,12 +1123,12 @@
         <div
           class="reveal mt-20 px-6 md:px-8 py-6 flex flex-col sm:flex-row items-center justify-between gap-5 md:gap-6 rounded-2xl text-center sm:text-left"
           style="background: var(--panel-b); transition-delay:.3s">
-          <p class="font-display text-lg md:text-xl text-[var(--ink)]">Hungry yet? Explore our delicious, inclusive menu
-            of great
-            food and drinks.</p>
+          <p class="font-display text-lg md:text-xl text-[var(--ink)]">Déjà faim ? Découvrez notre menu délicieux et
+            inclusif, plein de
+            bons plats et boissons.</p>
           <a href="#"
             class="shrink-0 inline-flex items-center gap-2 px-6 py-3 rounded-full text-sm font-semibold text-white ember-gradient shadow-lg shadow-orange-900/10 hover:brightness-105 transition">
-            View The Menu
+            Voir le menu
             <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"
               stroke-linecap="round" stroke-linejoin="round">
               <path d="M5 12h14M13 6l6 6-6 6" />
@@ -1121,11 +1145,11 @@
         <div class="reveal flex flex-wrap items-center gap-4 md:gap-5 mb-7 md:mb-9">
           <span class="inline-flex items-center gap-2 text-xs font-semibold tracking-[0.25em] uppercase ember-text">
             <span class="w-6 h-px ember-gradient"></span>
-            What Halifax is saying
+            Ce que dit Halifax
           </span>
           <div class="flex items-center gap-2.5">
             <span class="font-display font-semibold text-[var(--ink)] leading-none">4.7</span>
-            <div class="flex gap-0.5" style="color:var(--ember-2);" aria-label="4.7 out of 5 stars">
+            <div class="flex gap-0.5" style="color:var(--ember-2);" aria-label="4,7 sur 5 étoiles">
               <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor">
                 <path d="M12 2l3.1 6.3 6.9 1-5 4.9 1.2 6.9L12 17.8 5.8 21l1.2-6.9-5-4.9 6.9-1L12 2Z" />
               </svg>
@@ -1143,7 +1167,7 @@
                   fill-opacity=".55" />
               </svg>
             </div>
-            <span class="text-sm" style="color:var(--ink-soft);">135 reviews</span>
+            <span class="text-sm" style="color:var(--ink-soft);">135 avis</span>
           </div>
         </div>
 
@@ -1157,7 +1181,7 @@
         <!-- Arrows + Read all reviews -->
         <div class="reveal flex items-center justify-between mt-1">
           <div class="flex items-center gap-2">
-            <button id="reviews-prev" aria-label="Previous reviews"
+            <button id="reviews-prev" aria-label="Avis précédents"
               class="w-10 h-10 rounded-full inline-flex items-center justify-center transition hover:bg-black/10 disabled:opacity-30 disabled:cursor-not-allowed border border-black/10"
               style="color:var(--ink);">
               <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
@@ -1165,7 +1189,7 @@
                 <path d="m15 18-6-6 6-6" />
               </svg>
             </button>
-            <button id="reviews-next" aria-label="Next reviews"
+            <button id="reviews-next" aria-label="Avis suivants"
               class="w-10 h-10 rounded-full inline-flex items-center justify-center transition hover:bg-black/10 disabled:opacity-30 disabled:cursor-not-allowed border border-black/10"
               style="color:var(--ink);">
               <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
@@ -1176,7 +1200,7 @@
           </div>
 
           <a href="#" class="text-sm font-semibold underline decoration-[var(--ember-2)]" style="color:var(--ink);">
-            Read all our reviews on Google →
+            Lire tous nos avis sur Google →
           </a>
         </div>
 
@@ -1191,11 +1215,11 @@
           <span
             class="inline-flex items-center justify-center gap-2 text-xs font-semibold tracking-[0.25em] uppercase ember-text mb-4">
             <span class="w-6 h-px ember-gradient"></span>
-            Good To Know
+            Bon à savoir
             <span class="w-6 h-px ember-gradient"></span>
           </span>
           <h2 class="font-display text-3xl md:text-4xl font-medium leading-[1.15] text-[var(--ink)]">
-            Questions we get a lot
+            Questions fréquentes
           </h2>
         </div>
 
@@ -1204,7 +1228,7 @@
 
           <details class="faq-item group">
             <summary class="faq-summary">
-              <span>Do you serve alcohol?</span>
+              <span>Servez-vous de l'alcool ?</span>
               <svg class="faq-chevron" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor"
                 stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
                 <path d="M6 9l6 6 6-6" />
@@ -1212,17 +1236,17 @@
             </summary>
             <div class="faq-answer-wrap">
               <div class="faq-answer">
-                Yes — we run a full bar. And every mixed drink on the menu also comes in an
-                <span class="font-semibold text-[var(--ink)]">alcohol-free version by default</span>, with spirit
-                pairings on hand for anyone who wants them. So whether you're drinking or not, nobody's stuck
-                choosing between soda water and nothing.
+                Oui — nous avons un bar complet. Et chaque cocktail du menu est aussi offert par défaut en
+                <span class="font-semibold text-[var(--ink)]">version sans alcool</span>, avec des accords d'alcool
+                disponibles pour qui le souhaite. Alors que vous buviez ou non, personne n'est coincé à choisir
+                entre l'eau gazeuse et rien du tout.
               </div>
             </div>
           </details>
 
           <details class="faq-item group">
             <summary class="faq-summary">
-              <span>Can you accommodate allergies and dietary restrictions?</span>
+              <span>Pouvez-vous tenir compte des allergies et restrictions alimentaires ?</span>
               <svg class="faq-chevron" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor"
                 stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
                 <path d="M6 9l6 6 6-6" />
@@ -1230,19 +1254,20 @@
             </summary>
             <div class="faq-answer-wrap">
               <div class="faq-answer">
-                This one matters to us. The menu includes clearly marked
-                <span class="font-semibold text-[var(--ink)]">gluten-free, plant-based, and allergy-friendly</span>
-                options throughout — not just a token substitution here and there. If you're managing a specific
-                allergy (nuts, shellfish, dairy, etc.), let your server know when you order; our kitchen can walk
-                through ingredients and adjust where possible. We believe it's easy to be accommodating, and we'd
-                rather you ask twice than worry once.
+                C'est important pour nous. Le menu comprend des options clairement identifiées
+                <span class="font-semibold text-[var(--ink)]">sans gluten, végétales et adaptées aux allergies</span>
+                partout — pas seulement une substitution symbolique ici et là. Si vous gérez une allergie
+                particulière (noix, fruits de mer, produits laitiers, etc.), informez-en votre serveur ou serveuse
+                au moment de commander; notre cuisine peut passer en revue les ingrédients et ajuster si possible.
+                Nous croyons qu'il est facile d'être accommodant, et nous préférons que vous demandiez deux fois
+                plutôt que de vous inquiéter une seule fois.
               </div>
             </div>
           </details>
 
           <details class="faq-item group">
             <summary class="faq-summary">
-              <span>Do you take reservations?</span>
+              <span>Prenez-vous des réservations ?</span>
               <svg class="faq-chevron" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor"
                 stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
                 <path d="M6 9l6 6 6-6" />
@@ -1250,19 +1275,20 @@
             </summary>
             <div class="faq-answer-wrap">
               <div class="faq-answer">
-                Yes, for parties of any size — walk-ins are always welcome too, but a reservation guarantees your
-                table, especially on trivia nights (Brooklyn 99, Marvel, and more, roughly every other week).
-                For larger groups or private bookings, email us at
+                Oui, pour des groupes de toute taille — les visites sans réservation sont aussi toujours
+                bienvenues, mais une réservation garantit votre table, surtout lors des soirées Trivia
+                (Brooklyn 99, Marvel, et plus, environ toutes les deux semaines). Pour les groupes plus
+                importants ou les réservations privées, écrivez-nous à
                 <a href="mailto:bonfirehalifax@gmail.com"
                   class="underline decoration-[var(--ember-2)] hover:text-[var(--ember-2)]">bonfirehalifax@gmail.com</a>
-                and we'll sort out timing and space.
+                et nous nous occuperons de l'horaire et de l'espace.
               </div>
             </div>
           </details>
 
           <details class="faq-item group">
             <summary class="faq-summary">
-              <span>Do you host private events?</span>
+              <span>Organisez-vous des événements privés ?</span>
               <svg class="faq-chevron" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor"
                 stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
                 <path d="M6 9l6 6 6-6" />
@@ -1270,16 +1296,17 @@
             </summary>
             <div class="faq-answer-wrap">
               <div class="faq-answer">
-                We do — birthdays, work socials, fundraisers, you name it. Reach out with your headcount, date,
-                and what you're picturing, and we'll let you know what's possible in the space and put together
-                a plan. The earlier you reach out, the more flexible we can be on timing.
+                Oui — anniversaires, activités d'entreprise, collectes de fonds, vous nommez ça. Contactez-nous
+                avec le nombre de personnes, la date et ce que vous avez en tête, et nous vous dirons ce qui est
+                possible dans l'espace et bâtirons un plan ensemble. Plus vous nous contactez tôt, plus nous
+                pouvons être flexibles sur l'horaire.
               </div>
             </div>
           </details>
 
           <details class="faq-item group">
             <summary class="faq-summary">
-              <span>Do you offer catering?</span>
+              <span>Offrez-vous un service traiteur ?</span>
               <svg class="faq-chevron" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor"
                 stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
                 <path d="M6 9l6 6 6-6" />
@@ -1287,18 +1314,19 @@
             </summary>
             <div class="faq-answer-wrap">
               <div class="faq-answer">
-                Yes — comfort food off the grill travels well. Whether it's an office lunch or a full event, get
-                in touch with your group size and date and we'll put a menu together, including gluten-free,
-                plant-based, and allergy-friendly options. Head to the
-                <a href="#" class="underline decoration-[var(--ember-2)] hover:text-[var(--ember-2)]">Catering</a>
-                page for the full rundown, or email us directly to start the conversation.
+                Oui — notre cuisine réconfortante du grill se transporte bien. Que ce soit pour un dîner de
+                bureau ou un événement complet, contactez-nous avec la taille de votre groupe et la date, et nous
+                préparerons un menu, incluant des options sans gluten, végétales et adaptées aux allergies.
+                Consultez la page
+                <a href="#" class="underline decoration-[var(--ember-2)] hover:text-[var(--ember-2)]">Traiteur</a>
+                pour tous les détails, ou écrivez-nous directement pour commencer la conversation.
               </div>
             </div>
           </details>
 
           <details class="faq-item group">
             <summary class="faq-summary">
-              <span>Can I order online for pickup or delivery?</span>
+              <span>Puis-je commander en ligne pour ramassage ou livraison ?</span>
               <svg class="faq-chevron" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor"
                 stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
                 <path d="M6 9l6 6 6-6" />
@@ -1306,17 +1334,18 @@
             </summary>
             <div class="faq-answer-wrap">
               <div class="faq-answer">
-                Yep. You can order directly through the <span class="font-semibold text-[var(--ink)]">Order Now</span>
-                button for pickup, or find us on <span class="font-semibold text-[var(--ink)]">Uber Eats</span>
-                for delivery. Heads up that third-party delivery pricing is set by the platform, not us — dining
-                in or picking up directly always gets you our actual menu prices.
+                Oui. Vous pouvez commander directement via le bouton <span
+                  class="font-semibold text-[var(--ink)]">Commander</span>
+                pour le ramassage, ou nous trouver sur <span class="font-semibold text-[var(--ink)]">Uber Eats</span>
+                pour la livraison. À noter que les prix de livraison tierce sont fixés par la plateforme, pas par
+                nous — manger sur place ou ramasser directement vous garantit toujours nos vrais prix du menu.
               </div>
             </div>
           </details>
 
           <details class="faq-item group">
             <summary class="faq-summary">
-              <span>Is there parking?</span>
+              <span>Y a-t-il du stationnement ?</span>
               <svg class="faq-chevron" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor"
                 stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
                 <path d="M6 9l6 6 6-6" />
@@ -1324,10 +1353,10 @@
             </summary>
             <div class="faq-answer-wrap">
               <div class="faq-answer">
-                There's street parking along Robie St and the surrounding blocks near Cunard — metered during
-                the day, free in the evenings in most spots, but signage rules the day, so give it a glance.
-                If you're coming for a bigger group or an event, message us ahead of time and we can point you
-                to the closest reliable option.
+                Il y a du stationnement sur rue le long de Robie St et les rues environnantes près de Cunard —
+                payant le jour, gratuit le soir dans la plupart des cas, mais la signalisation prévaut, alors
+                vérifiez-la. Si vous venez en grand groupe ou pour un événement, écrivez-nous à l'avance et nous
+                pourrons vous indiquer l'option fiable la plus proche.
               </div>
             </div>
           </details>
@@ -1342,7 +1371,7 @@
         <span
           class="reveal inline-flex items-center justify-center gap-2 text-xs font-semibold tracking-[0.25em] uppercase ember-text mb-3">
           <span class="w-6 h-px ember-gradient"></span>
-          Newsletter
+          Infolettre
           <span class="w-6 h-px ember-gradient"></span>
         </span>
 
@@ -1355,22 +1384,23 @@
 
           <div class="relative z-10">
             <h2 class="reveal font-display text-2xl md:text-3xl font-medium leading-[1.15]" style="color:var(--ink);">
-              Get Some Bonfire in your inbox
+              Recevez un peu de Bonfire dans votre boîte courriel
             </h2>
             <p class="reveal mt-3 text-sm leading-relaxed" style="color:var(--ink-soft);">
-              Trivia night line-ups, new menu drops, and the occasional free app — no spam, just what's on the grill.
+              Les soirées Trivia à venir, les nouveautés du menu, et une entrée gratuite à l'occasion — pas de pourriel,
+              juste ce qui se passe sur le grill.
             </p>
 
             <form id="newsletter-form" name="newsletter" class="reveal mt-5">
               <div class="max-w-3xl mx-auto">
                 <div class="flex flex-col sm:flex-row gap-3">
-                  <label for="newsletter-email" class="sr-only">Email address</label>
-                  <input id="newsletter-email" name="email" type="email" required placeholder="you@email.com"
+                  <label for="newsletter-email" class="sr-only">Adresse courriel</label>
+                  <input id="newsletter-email" name="email" type="email" required placeholder="vous@courriel.com"
                     autocomplete="email"
                     class="newsletter-input sm:flex-1 px-4 opacity-60 py-2.5 rounded-full text-sm outline-none focus:border-[var(--ember-2)] transition" />
                   <button type="submit"
                     class="shrink-0 inline-flex items-center justify-center gap-2 px-5 py-2.5 rounded-full text-sm font-semibold text-white ember-gradient hover:brightness-105 transition">
-                    Subscribe
+                    S'abonner
                   </button>
                 </div>
 
@@ -1379,7 +1409,8 @@
                   style="color:#8a8171;">
                   <input id="newsletter-consent" name="consent" type="checkbox" required
                     class="mt-0.5 shrink-0 w-4 h-4 rounded accent-[var(--ember-2)]" />
-                  Yes, send me trivia nights, menu drops, and updates from The Bonfire. I can unsubscribe anytime.
+                  Oui, envoyez-moi les soirées Trivia, les nouveautés du menu et les mises à jour du Bonfire. Je peux me
+                  désabonner en tout temps.
                 </label>
               </div>
             </form>
@@ -1416,13 +1447,13 @@
                 BONFIRE</span>
             </a>
             <p class="text-sm leading-relaxed" style="color:#8a8171;">
-              Kjipuktuk/Halifax's only tip-free, profit-sharing pub &amp; grill. Comfort food off the grill, done a
-              little different.
+              Le seul pub-grill sans pourboire et à partage des profits de Kjipuktuk/Halifax. Une cuisine
+              réconfortante du grill, faite un peu autrement.
             </p>
 
             <!-- Social -->
             <div class="flex items-center gap-3 mt-6">
-              <a href="https://www.instagram.com/bonfirehalifax/" aria-label="The Bonfire on Instagram"
+              <a href="https://www.instagram.com/bonfirehalifax/" aria-label="Le Bonfire sur Instagram"
                 class="w-9 h-9 rounded-full flex items-center justify-center transition hover:brightness-125"
                 style="background:#2a2118;">
                 <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#c9c2b4" stroke-width="2">
@@ -1431,14 +1462,14 @@
                   <circle cx="17.5" cy="6.5" r="1" />
                 </svg>
               </a>
-              <a href="#" aria-label="The Bonfire on Facebook"
+              <a href="#" aria-label="Le Bonfire sur Facebook"
                 class="w-9 h-9 rounded-full flex items-center justify-center transition hover:brightness-125"
                 style="background:#2a2118;">
                 <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#c9c2b4" stroke-width="2">
                   <path d="M14 9h3V6h-3c-2 0-3.5 1.5-3.5 3.5V12H8v3h2.5v6h3v-6H16l.5-3h-3V9.8c0-.5.3-.8.7-.8Z" />
                 </svg>
               </a>
-              <a href="#" aria-label="The Bonfire on TikTok"
+              <a href="#" aria-label="Le Bonfire sur TikTok"
                 class="w-9 h-9 rounded-full flex items-center justify-center transition hover:brightness-125"
                 style="background:#2a2118;">
                 <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#c9c2b4" stroke-width="2">
@@ -1452,13 +1483,13 @@
           <!-- Explore -->
           <div class="w-fit">
             <h4 class="text-xs font-semibold tracking-[0.2em] uppercase mb-4 whitespace-nowrap" style="color:#8a8171;">
-              Explore</h4>
+              Explorer</h4>
             <ul class="space-y-2.5 text-sm whitespace-nowrap" style="color:#c9c2b4;">
               <li><a href="#" class="hover:text-white transition">Menu</a></li>
-              <li><a href="#" class="hover:text-white transition">Catering</a></li>
-              <li><a href="#" class="hover:text-white transition">Reservation &amp; Events</a></li>
-              <li><a href="#" class="hover:text-white transition">Location &amp; Hours</a></li>
-              <li><a href="#" class="hover:text-white transition">Blog</a></li>
+              <li><a href="#" class="hover:text-white transition">Traiteur</a></li>
+              <li><a href="#" class="hover:text-white transition">Réservations et événements</a></li>
+              <li><a href="#" class="hover:text-white transition">Emplacement et horaires</a></li>
+              <li><a href="#" class="hover:text-white transition">Blogue</a></li>
             </ul>
           </div>
 
@@ -1467,17 +1498,17 @@
             <h4 class="text-xs font-semibold tracking-[0.2em] uppercase mb-4 whitespace-nowrap" style="color:#8a8171;">
               The Bonfire</h4>
             <ul class="space-y-2.5 text-sm whitespace-nowrap" style="color:#c9c2b4;">
-              <li><a href="#" class="hover:text-white transition">About Us</a></li>
-              <li><a href="#" class="hover:text-white transition">Contact Us</a></li>
-              <li><a href="#" class="hover:text-white transition">Careers</a></li>
-              <li><a href="#" class="hover:text-white transition">Gift Cards</a></li>
+              <li><a href="#" class="hover:text-white transition">À propos</a></li>
+              <li><a href="#" class="hover:text-white transition">Contactez-nous</a></li>
+              <li><a href="#" class="hover:text-white transition">Carrières</a></li>
+              <li><a href="#" class="hover:text-white transition">Cartes-cadeaux</a></li>
             </ul>
           </div>
 
           <!-- Visit -->
           <div class="w-fit">
             <h4 class="text-xs font-semibold tracking-[0.2em] uppercase mb-4 whitespace-nowrap" style="color:#8a8171;">
-              Visit</h4>
+              Nous visiter</h4>
             <ul class="space-y-3 text-sm" style="color:#c9c2b4;">
               <li class="flex gap-2.5 items-start">
                 <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--ember-2)" stroke-width="2"
@@ -1501,7 +1532,7 @@
                   <circle cx="12" cy="12" r="9" />
                   <path d="M12 7v5l3.5 2" />
                 </svg>
-                <span class="whitespace-nowrap">Sun–Tue: 4–9pm<br>Wed–Sat: 4–11pm</span>
+                <span class="whitespace-nowrap">Dim–mar : 16h–21h<br>Mer–sam : 16h–23h</span>
               </li>
             </ul>
           </div>
@@ -1510,18 +1541,40 @@
         <!-- Bottom bar -->
         <div class="pt-5 flex flex-col sm:flex-row items-center justify-between gap-3">
           <p class="text-xs" style="color:#6b6153;">
-            © <span id="footer-year">2026</span> The Bonfire. All rights reserved.
+            © <span id="footer-year">2026</span> The Bonfire. Tous droits réservés.
           </p>
           <div class="flex items-center gap-5 text-xs" style="color:#6b6153;">
-            <a href="#" class="hover:text-[var(--cream)] transition">Privacy Policy</a>
-            <a href="#" class="hover:text-[var(--cream)] transition">Terms of Service</a>
+            <a href="#" class="hover:text-[var(--cream)] transition">Politique de confidentialité</a>
+            <a href="#" class="hover:text-[var(--cream)] transition">Conditions d'utilisation</a>
           </div>
         </div>
 
       </div>
     </footer>
-  </main>
 
+    <script>
+      // Dark mode toggle: flips html.dark, persists choice, syncs button state.
+      (function () {
+        const toggle = document.getElementById('dark-mode-toggle');
+        if (!toggle) return;
+
+        const root = document.documentElement;
+
+        const syncButton = () => {
+          toggle.setAttribute('aria-pressed', root.classList.contains('dark') ? 'true' : 'false');
+        };
+        syncButton();
+
+        toggle.addEventListener('click', () => {
+          root.classList.toggle('dark');
+          try {
+            localStorage.setItem('theme', root.classList.contains('dark') ? 'dark' : 'light');
+          } catch (e) { /* localStorage unavailable — theme just won't persist */ }
+          syncButton();
+        });
+      })();
+    </script>
+  </main>
 </body>
 
 </html>
